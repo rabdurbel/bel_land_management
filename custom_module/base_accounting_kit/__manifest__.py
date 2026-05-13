@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Odoo 18 Full Accounting Kit for Community',
     'version': '18.0.5.0.8',
