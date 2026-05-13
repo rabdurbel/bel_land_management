@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="view_land_mutation_info_list" model="ir.ui.view">
+        <field name="name">Land Mutation Info</field>
+        <field name="model">land.mutation.info</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'paid'"
+                  decoration-warning="state == 'verify'"
+                  decoration-danger="state == 'cancel'">
+                <field name="name"/>
+                <field name="land_mutation_id"/>
+                <field name="owner_id"/>
+                <field name="khatian_no"/>
+                <field name="dag_no"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_land_mutation_info_form" model="ir.ui.view">
+        <field name="name">Land Mutation Info</field>
+        <field name="model">land.mutation.info</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                    <!-- ✅ STATUSBAR -->
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,verify,approve,paid,cancel"/>
+
+                    <!-- FLOW BUTTONS -->
+                    <button name="action_verify"
+                            string="Verify"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_approve"
+                            string="Approve"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'verify'"/>
+
+                    <button name="action_paid"
+                            string="Mark Paid"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'approve'"/>
+
+                    <!-- CANCEL BUTTON (ANYTIME EXCEPT PAID) -->
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            class="btn-danger"
+                            invisible="state == 'cancel'"/>
+
+                    <!-- REOPEN -->
+                    <button name="action_reset_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            class="btn-warning"
+                            invisible="state != 'cancel'"/>
+
+                </header>
+
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group string="Land Mutation Information">
+                        <group>
+                            <field name="land_mutation_id"/>
+                            <field name="owner_id"/>
+                            <field name="khatian_no"/>
+                        </group>
+                        <group>
+                            <field name="dag_no"/>
+                            <field name="mutation_copy"/>
+                            <field name="dcr_copy"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_land_mutation_info_filter" model="ir.ui.view">
+        <field name="name">Land Mutation Info</field>
+        <field name="model">land.mutation.info</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="name"/>
+                <field name="land_mutation_id"/>
+                <field name="owner_id"/>
+                <field name="khatian_no"/>
+                <field name="dag_no"/>
+                <field name="state"/>
+                <separator/>
+                <filter name="groupby_land_mutation_id" context="{'group_by' : 'land_mutation_id'}" string="Land Area"/>
+                <filter name="groupby_owner_id" context="{'group_by' : 'owner_id'}" string="Owner Name"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_land_mutation_info" model="ir.actions.act_window">
+        <field name="name">Land Mutation Info</field>
+        <field name="res_model">land.mutation.info</field>
+        <field name="view_mode">list,form,pivot,activity</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Land Mutation record!
+            </p>
+        </field>
+    </record>
+    <!--        <menuitem name="Rooms" id="menu_property_room" action="action_property_room" parent="menu_property_info" />-->
+    <menuitem id="menu_land_mutation_info" name="Land Mutation Info"
+              parent="land_info_root_menu"
+              action="action_land_mutation_info" sequence="6"/>
+
+</odoo>

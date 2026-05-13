@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree View -->
+    <record id="view_land_info_list" model="ir.ui.view">
+        <field name="name">land.info.list</field>
+        <field name="model">land.info</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'approve'"
+                  decoration-warning="state == 'verify'"
+                  decoration-muted="state == 'done'">
+                <field name="name"/>
+                <field name="land_name"/>
+                <field name="owner_id"/>
+                <field name="district"/>
+                <field name="thana"/>
+                <field name="total_land_area" sum="Total Area"/>
+                <field name="land_type"/>
+                <field name="land_usage"/>
+                <field name="state"/>
+                <field name="deed_no" optional="hide"/>
+                <field name="purchase_land_area" optional="hide"/>
+            </list>
+        </field>
+    </record>
+    <!-- Form View -->
+    <record id="view_land_info_form" model="ir.ui.view">
+        <field name="name">land.info.form</field>
+        <field name="model">land.info</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,verify,approve,done"/>
+
+                    <button name="action_verify"
+                            string="Verify"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_approve"
+                            string="Approve"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'verify'"/>
+
+                    <button name="action_done"
+                            string="Close"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state != 'approve'"/>
+
+                    <!--  Reopen Button -->
+                    <button name="action_reset_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            class="btn-warning"
+                            invisible="state != 'done'"/>
+
+
+                    <!-- Optional workflow buttons -->
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <!-- Attachment Count Button -->
+                        <button name="attachment_tree_view"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-paperclip">
+                            <field name="doc_count" widget="statinfo" string="Documents"/>
+                        </button>
+
+                        <!-- Land Mutations -->
+                        <button name="action_view_mutation"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-map-marker">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="mutation_count"/>
+                                </span>
+                                <span class="o_stat_text">Mutations</span>
+                            </div>
+                        </button>
+
+                        <!-- Land Tax -->
+                        <button name="action_view_land_tax"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-money">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="land_tax_count"/>
+                                </span>
+                                <span class="o_stat_text">Taxes</span>
+                            </div>
+                        </button>
+
+                        <!-- Building Structure -->
+                        <button name="action_view_building_structure"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-building">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="building_structure_count"/>
+                                </span>
+                                <span class="o_stat_text">Structures</span>
+                            </div>
+                        </button>
+
+                        <!-- Buildings -->
+                        <button name="action_view_building"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-home">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="building_count"/>
+                                </span>
+                                <span class="o_stat_text">Buildings</span>
+                            </div>
+                        </button>
+
+                        <!-- Cases -->
+                        <button name="action_view_case"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-gavel">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="case_count"/>
+                                </span>
+                                <span class="o_stat_text">Cases</span>
+                            </div>
+                        </button>
+
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <!-- 🔹 3. ADDRESS & LOCATION -->
+                        <group string="Address Information">
+                            <field name="division_id"/>
+                            <!-- Domain filter -->
+                            <field name="district_id"
+                                   domain="[('division_id', '=', division_id)]"/>
+                            <!--                            <field name="division" required="1"/>-->
+                            <!--                            <field name="district" required="1"/>-->
+                            <field name="thana" required="1"/>
+                            <field name="mouza_name" required="1"/>
+                        </group>
+
+                        <!-- 🔹 4. DOCUMENTS -->
+                        <group string="Documents">
+                            <group>
+                                <field name="viya_deed"/>
+                                <field name="viya_mutation"/>
+                                <field name="viya_court_order"/>
+                            </group>
+                            <group>
+                                <!--                                <field name="viya_deed_doc" string=""/>-->
+                                <!--                                <field name="viya_mutation_doc" string=""/>-->
+                                <!--                                <field name="viya_court_order_doc" string=""/>-->
+                                <!-- MULTIPLE FILE UPLOAD -->
+                                <field name="viya_deed_doc_ids" widget="many2many_binary" string=""/>
+                                <field name="viya_mutation_doc_ids" widget="many2many_binary" string=""/>
+                                <field name="viya_court_order_doc_ids" widget="many2many_binary" string=""/>
+
+                            </group>
+
+                            <!--                            <field name="other_document"/>-->
+                        </group>
+
+
+                    </group>
+                    <!-- 🔹 1. KHATIAN INFORMATION -->
+                    <group>
+                        <group string="Khatian Information">
+                            <group>
+                                <field name="khatian_no_cs"/>
+                                <field name="khatian_no_rs"/>
+                                <field name="khatian_no_sa"/>
+                                <field name="khatian_no_bs"/>
+                            </group>
+                            <group>
+                                <field name="khatian_no_cs_doc" string=""/>
+                                <field name="khatian_no_rs_doc" string=""/>
+                                <field name="khatian_no_sa_doc" string=""/>
+                                <field name="khatian_no_bs_doc" string=""/>
+                            </group>
+                        </group>
+                        <group string="Dag Information">
+                            <group>
+                                <field name="plot_dag_cs"/>
+                                <field name="plot_dag_rs"/>
+                                <field name="plot_dag_sa"/>
+                                <field name="plot_dag_bs"/>
+                            </group>
+                            <group>
+                                <field name="plot_dag_cs_doc" string=""/>
+                                <field name="plot_dag_rs_doc" string=""/>
+                                <field name="plot_dag_sa_doc" string=""/>
+                                <field name="plot_dag_bs_doc" string=""/>
+                            </group>
+
+                        </group>
+
+                    </group>
+                    <group>
+                        <!--  1. BASIC LAND INFO -->
+                        <group string="Basic Land Information">
+                            <field name="land_name"/>
+                            <field name="owner_id" required="1"/>
+                            <field name="deed_no"/>
+                            <field name="date"/>
+                            <field name="land_usage" required="1"/>
+                            <field name="land_type" required="1"/>
+                        </group>
+
+                        <!--  2. LAND SIZE & DETAILS -->
+                        <group string="Land Size &amp; Details">
+                            <field name="total_land_area" required="1"/>
+                            <field name="purchase_land_area"/>
+                            <field name="total_land_dag"/>
+                            <field name="land_occupied" required="1"/>
+                        </group>
+                    </group>
+                    <group string="Additional Information">
+                        <field name="special_note" widget="textarea"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Land Mutation Information">
+                            <field name="mutation_ids">
+                                <list editable="bottom">
+                                    <field name="land_mutation_id"/>
+                                    <field name="owner_id"/>
+                                    <field name="khatian_no"/>
+                                    <field name="dag_no"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <page string="Land Tax Information">
+                            <field name="land_tax_ids">
+                                <list editable="bottom">
+                                    <field name="payment_rashid_no"/>
+                                    <field name="dag_no"/>
+                                    <field name="city_corporation_union"/>
+                                    <field name="tax_payment_amount" sum="Total"/>
+                                    <field name="last_tax_payment_date"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!--  Building Structures -->
+                        <page string="Building Structures">
+                            <field name="building_structure_ids">
+                                <list editable="bottom">
+                                    <field name="structure_plan_approval_institute"/>
+                                    <field name="plot_dag_no"/>
+                                    <field name="approval_date"/>
+                                    <field name="khatian_no"/>
+                                    <field name="attachment_copy" widget="binary"/>
+                                </list>
+                            </field>
+                        </page>
+                        <!--  Buildings -->
+                        <page string="Buildings">
+                            <field name="building_ids">
+                                <list editable="bottom">
+                                    <field name="building_name"/>
+                                    <field name="total_floor"/>
+                                    <field name="occupancy_status"/>
+                                    <field name="building_status"/>
+
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Case Pending Info">
+                            <field name="case_ids">
+                                <list editable="bottom">
+                                    <field name="court_name"/>
+                                    <field name="case_no"/>
+                                    <field name="judgement"/>
+                                    <field name="case_next_date"/>
+                                    <field name="case_status"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Property kanban view -->
+    <record id="land_info_view_kanban" model="ir.ui.view">
+        <field name="name">land.info.view.kanban</field>
+        <field name="model">land.info</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile"
+                    sample="1">
+                <field name="id"/>
+                <field name="land_name"/>
+                <field name="land_usage"/>
+                <field name="image"/>
+                <field name="land_type"/>
+                <field name="district"/>
+                <field name="thana"/>
+                <field name="division"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                            <field name="image"
+                                   class="o_kanban_image_fill_left"
+                                   preview_image="image"
+                                   widget="image"
+                                   options="{'zoom': true, 'zoom_delay': 1000, 'background': true, 'preventClicks': false}"/>
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <h3>
+                                                <field name="land_name"/>
+                                            </h3>
+                                        </strong>
+                                        <span class="o_kanban_record_subtitle">
+                                            <field name="land_type"/>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <field name="land_usage"/>
+                                </div>
+                                <div>
+                                    <field name="district"/>
+                                </div>
+                                <div>
+                                    <field name="thana"/>
+                                    <t t-esc="division"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content position-absolute fixed-bottom mr-2">
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left"/>
+                                    <div class="oe_kanban_bottom_right">
+                                        <div class="">
+                                            <field name="activity_ids"
+                                                   widget="kanban_activity"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="view_land_info_filter" model="ir.ui.view">
+        <field name="name">Land Info</field>
+        <field name="model">land.info</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="thana"/>
+                <field name="land_type"/>
+                <field name="land_usage"/>
+                <field name="deed_no"/>
+                <separator/>
+                <filter name="groupby_district" context="{'group_by' : 'district'}" string="District"/>
+                <filter name="groupby_owner_id" context="{'group_by' : 'owner_id'}" string="Land Owner"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_land_info" model="ir.actions.act_window">
+        <field name="name">Land Information</field>
+        <field name="res_model">land.info</field>
+        <field name="view_mode">list,form,kanban,activity,pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Land record!
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_land_info" name="Land Information" parent="land_info_root_menu" action="action_land_info"
+              sequence="1"/>
+
+</odoo>

@@ -1,0 +1,197 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="view_property_room_list" model="ir.ui.view">
+        <field name="name">Rooms</field>
+        <field name="model">property.room</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'done'"
+                  decoration-warning="state == 'verify'"
+                  decoration-danger="state == 'cancel'">
+                <field name="reference"/>
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="usage_id"/>
+                <field name="room_type"/>
+                <field name="usage" column_invisible="1"/>
+                <field name="state"/>
+
+                <field name="surface" sum="surface"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_property_room_form" model="ir.ui.view">
+        <field name="name">Room</field>
+        <field name="model">property.room</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,verify,approve,done,cancel"/>
+
+                    <button name="action_verify"
+                            string="Verify"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_approve"
+                            string="Approve"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'verify'"/>
+
+                    <button name="action_done"
+                            string="Activate"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'approve'"/>
+
+                    <!-- CANCEL always visible -->
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            class="btn-danger"/>
+
+                    <!-- Reset draft only from cancel -->
+                    <button name="action_reset_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            class="btn-warning"
+                            invisible="state != 'cancel'"/>
+                </header>
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="reference"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Identification">
+<!--                            <field name="name"/>-->
+                            <field name="room_type"/>
+                            <field name="property_id"/>
+                            <field name="level"/>
+                        </group>
+                        <group string="Dimension">
+
+
+                            <label for="surface"/>
+                            <div class="o_row" name="height">
+                                <field name="surface" string="Surface Area" class="oe_inline"/>
+                                <span>m²</span>
+                            </div>
+
+
+                            <label for="height"/>
+                            <div class="o_row" name="height">
+                                <field name="height" string="Height" class="oe_inline"/>
+                                <span>m</span>
+                            </div>
+
+
+                            <label for="perimeter"/>
+                            <div class="o_row" name="perimeter">
+                                <field name="perimeter" string="Perimeter" class="oe_inline"/>
+                                <span>m</span>
+                            </div>
+
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="General">
+                            <group>
+                                <group>
+                                    <field name="floor_type"/>
+                                    <field name="usage_id"/>
+                                    <field name="usage" invisible="1"/>
+                                    <field name="rented_room"/>
+                                </group>
+                                <group>
+                                    <field name="technical_condition"/>
+                                    <field name="tenant_id" invisible="rented_room==False"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Surfaces">
+                            <group>
+                                <field name="surface_disinsection"/>
+                                <field name="surface_cleaning_floor"/>
+                                <field name="surface_cleaning_doors"/>
+                                <field name="surface_cleaning_windows"/>
+                            </group>
+                            <group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="propertty_room_view_kanban" model="ir.ui.view">
+        <field name="name">property.room.view.kanban</field>
+        <field name="model">property.room</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1" quick_create="false">
+                <progressbar field="floor_type"
+                             colors='{"w": "success", "l": "warning", "c": "danger"}'/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex mb-2" style="justify-content: space-between;">
+                            <field name="name" class="fw-bolder fs-5"/>
+                            <field name="usage_id" class="ms-1 text-muted fs-5"/>
+                        </div>
+
+                        <footer>
+                            <div class="d-flex text-muted">
+                                <field name="property_id"/>
+                            </div>
+                            <div>
+                                <div>
+                                    <field name="technical_condition"
+                                           widget="label_selection"
+                                           options="{'classes': {'0': 'info', '1': 'default', '3': 'btn-primary','5':'success'}}"
+                                           class="ms-auto"/>
+                                </div>
+                            </div>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_property_room_filter" model="ir.ui.view">
+        <field name="name">Rooms</field>
+        <field name="model">property.room</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="property_id"/>
+                <field name="usage_id"/>
+                <field name="usage" invisible="1"/>
+                <separator/>
+                <filter name="groupby_usage" context="{'group_by' : 'usage_id'}" string="Usage"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_property_room" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">property.room</field>
+        <field name="view_mode">list,form,kanban,pivot,activity</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Room record!
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_property_room" name="Rooms"
+              parent="land_info_root_menu"
+              action="action_property_room" sequence="70"/>
+
+</odoo>

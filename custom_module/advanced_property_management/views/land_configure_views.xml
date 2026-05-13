@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Property facilities action -->
+    <record id="land_type_action" model="ir.actions.act_window">
+        <field name="name">Land Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">land.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your First Land Type!
+            </p>
+        </field>
+    </record>
+    <!-- Property facilities menu items -->
+    <menuitem id="land_type_menu" name="Land Type" parent="property_configuration_menu"
+              action="land_type_action" sequence="12"/>
+    <!-- Property facilities tree view -->
+    <record id="land_type_view_list" model="ir.ui.view">
+        <field name="name">land.type.view.list</field>
+        <field name="model">land.type</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Property facilities action -->
+    <record id="land_classification_action" model="ir.actions.act_window">
+        <field name="name">Land Classification</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">land.classification</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your First Land Classification!
+            </p>
+        </field>
+    </record>
+    <!-- Property facilities menu items -->
+    <menuitem id="land_classifiacation_menu" name="Land Classification" parent="property_configuration_menu"
+              action="land_classification_action" sequence="15"/>
+    <!-- Property facilities tree view -->
+    <record id="land_classification_view_list" model="ir.ui.view">
+        <field name="name">land.classification.view.list</field>
+        <field name="model">land.classification</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Property facilities action -->
+    <record id="land_usage_action" model="ir.actions.act_window">
+        <field name="name">Land Usage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">land.usage</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your First Land Usage!
+            </p>
+        </field>
+    </record>
+    <!-- Property facilities menu items -->
+    <menuitem id="land_usage_menu" name="Land Usage" parent="property_configuration_menu"
+              action="land_usage_action" sequence="17"/>
+    <!-- Property facilities tree view -->
+    <record id="land_usage_view_list" model="ir.ui.view">
+        <field name="name">land.usage.view.list</field>
+        <field name="model">land.usage</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ================= DIVISION TREE ================= -->
+    <record id="view_division_list" model="ir.ui.view">
+        <field name="name">res.division.list</field>
+        <field name="model">res.division</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ================= DIVISION FORM ================= -->
+    <record id="view_division_form" model="ir.ui.view">
+        <field name="name">res.division.form</field>
+        <field name="model">res.division</field>
+        <field name="arch" type="xml">
+            <form string="Division">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ================= DISTRICT TREE ================= -->
+    <record id="view_district_list" model="ir.ui.view">
+        <field name="name">res.district.tree</field>
+        <field name="model">res.district</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="division_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ================= DISTRICT FORM ================= -->
+    <record id="view_district_form" model="ir.ui.view">
+        <field name="name">res.district.form</field>
+        <field name="model">res.district</field>
+        <field name="arch" type="xml">
+            <form string="District">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="division_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_division" model="ir.actions.act_window">
+        <field name="name">Division</field>
+        <field name="res_model">res.division</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_district" model="ir.actions.act_window">
+        <field name="name">District</field>
+        <field name="res_model">res.district</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+      <!-- Division Menu -->
+    <menuitem id="menu_division"
+              name="Division"
+              parent="property_configuration_menu"
+              action="action_division"/>
+
+    <!-- District Menu -->
+    <menuitem id="menu_district"
+              name="District"
+              parent="property_configuration_menu"
+              action="action_district"/>
+
+</odoo>

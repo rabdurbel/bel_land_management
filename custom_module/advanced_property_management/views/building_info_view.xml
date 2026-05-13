@@ -1,0 +1,197 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="view_building_info_list" model="ir.ui.view">
+        <field name="name">Building Information</field>
+        <field name="model">building.info</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="land_id"/>
+                <field name="owner_id"/>
+                <field name="building_name"/>
+                <field name="plot_address" optional="hide"/>
+                <field name="year_of_construction"/>
+                <field name="total_floor" optional="hide"/>
+                <field name="occupancy_status"/>
+                <field name="plot_size_sft" optional="hide"/>
+                <field name="total_basement" optional="hide"/>
+                <field name="building_status"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_building_info_form" model="ir.ui.view">
+        <field name="name">Building Information</field>
+        <field name="model">building.info</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <!-- ✅ HEADER -->
+                <header>
+
+                    <!-- Buttons -->
+                    <button name="action_start_construction" type="object"
+                            string="Start Construction"
+                            class="btn-primary"
+                            invisible="building_status != 'draft'"/>
+
+                    <button name="action_complete" type="object"
+                            string="Complete"
+                            class="btn-success"
+                            invisible="building_status != 'under_construction'"/>
+
+                    <button name="action_renovation" type="object"
+                            string="Renovation"
+                            class="btn-warning"
+                            invisible="building_status != 'completed'"/>
+
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            class="btn-danger"
+                            invisible="building_status == 'cancel'"/>
+
+                    <button name="action_reset" type="object"
+                            string="Reset"
+                            invisible="building_status != 'cancel'"/>
+
+                    <!-- ✅ Statusbar -->
+                    <field name="building_status"
+                           widget="statusbar"
+                           statusbar_visible="draft,under_construction,completed,renovation,cancel"/>
+                </header>
+                <sheet>
+                    <field name="building_image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group string="Building Information">
+                        <group>
+                            <field name="land_id"/>
+                            <field name="owner_id"/>
+                            <field name="building_name"/>
+                            <field name="year_of_construction"/>
+                            <field name="active"/>
+                            <field name="plot_address"/>
+                        </group>
+                        <group>
+                            <field name="total_floor"/>
+                            <field name="occupancy_status"/>
+                            <field name="plot_size_sft"/>
+                            <field name="total_basement"/>
+<!--                            <field name="building_status"/>-->
+                            <field name="generator_info"/>
+                            <field name="rent_agreement_attachment"/>
+
+                        </group>
+
+                    </group>
+                    <notebook>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="building_info_view_kanban" model="ir.ui.view">
+        <field name="name">building.info.view.kanban</field>
+        <field name="model">building.info</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile"
+                    sample="1">
+                <field name="id"/>
+                <field name="land_id"/>
+                <field name="owner_id"/>
+                <field name="building_name"/>
+                <field name="year_of_construction"/>
+                <field name="active"/>
+                <field name="plot_address"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                            <field name="building_image"
+                                   class="o_kanban_image_fill_left"
+                                   preview_image="image"
+                                   widget="image"
+                                   options="{'zoom': true, 'zoom_delay': 1000, 'background': true, 'preventClicks': false}"/>
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <h3>
+                                                <field name="building_name"/>
+                                            </h3>
+                                        </strong>
+                                        <span class="o_kanban_record_subtitle">
+                                            <field name="owner_id"/>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <field name="year_of_construction"/>
+                                </div>
+                                <div>
+                                    <field name="plot_address"/>
+                                </div>
+                                <div>
+                                    <field name="occupancy_status"/>
+                                    <t t-esc="building_status"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content position-absolute fixed-bottom mr-2">
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left"/>
+                                    <div class="oe_kanban_bottom_right">
+                                        <div class="">
+                                            <field name="activity_ids"
+                                                   widget="kanban_activity"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="view_building_info_filter" model="ir.ui.view">
+        <field name="name">Building Information</field>
+        <field name="model">building.info</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="land_id"/>
+                <field name="owner_id"/>
+                <field name="building_name"/>
+                <field name="plot_address"/>
+                <field name="year_of_construction"/>
+                <separator/>
+                <filter name="groupby_land_id" context="{'group_by' : 'land_id'}" string="Project Area"/>
+                <filter name="groupby_status"
+                        string="Status"
+                        context="{'group_by': 'building_status'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_building_info_plan" model="ir.actions.act_window">
+        <field name="name">Building Information</field>
+        <field name="res_model">building.info</field>
+        <field name="view_mode">list,form,kanban,pivot,activity</field>
+         <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Building Info record!
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_building_info_plan" name="Building Info"
+              parent="land_info_root_menu"
+              action="action_building_info_plan" sequence="35"/>
+
+</odoo>

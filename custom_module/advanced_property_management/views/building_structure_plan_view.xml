@@ -1,0 +1,159 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="view_building_structure_plan_list" model="ir.ui.view">
+        <field name="name">Building Structure &amp; Plan</field>
+        <field name="model">building.structure</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'done'"
+                  decoration-warning="state == 'verify'"
+                  decoration-danger="state == 'cancel'">
+
+                <field name="name"/>
+                <field name="land_id"/>
+                <field name="khatian_no"/>
+                <field name="mouza_name"/>
+                <field name="approval_date"/>
+                <field name="plot_dag_no"/>
+                <field name="structure_plan_approval_institute"/>
+                <field name="state"/>
+                <field name="attachment_copy"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_building_structure_plan_form" model="ir.ui.view">
+        <field name="name">Building Structure &amp; Plan</field>
+        <field name="model">building.structure</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,verify,approve,done,cancel"/>
+
+                    <button name="action_verify"
+                            string="Verify"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_approve"
+                            string="Approve"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'verify'"/>
+
+                    <button name="action_done"
+                            string="Activate"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'approve'"/>
+
+                    <!-- CANCEL ALWAYS -->
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            class="btn-danger"/>
+
+                    <!-- ONLY FROM CANCEL -->
+                    <button name="action_reset_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            class="btn-warning"
+                            invisible="state != 'cancel'"/>
+
+                </header>
+
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="name"/>
+
+                        </h1>
+                    </div>
+                    <group string="Building Structure &amp; Plan">
+                        <group>
+                            <field name="land_id"/>
+                            <field name="khatian_no"/>
+                            <field name="mouza_name"/>
+                            <field name="approval_date"/>
+
+                        </group>
+                        <group>
+                            <field name="plot_dag_no"/>
+                            <field name="structure_plan_approval_institute"/>
+                            <field name="attachment_copy"/>
+                        </group>
+
+
+                    </group>
+                    <notebook>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_building_structure_plan_kanban" model="ir.ui.view">
+        <field name="name">building.structure.view.kanban</field>
+        <field name="model">building.structure</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1" quick_create="false">
+                <field name="mouza_name"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex mb-2" style="justify-content: space-between;">
+                            <field name="land_id" class="fw-bolder fs-5"/>
+                            <field name="approval_date" class="ms-1 text-muted fs-5"/>
+                        </div>
+                        <footer>
+                            <div class="d-flex text-muted">
+                                <field name="structure_plan_approval_institute"/>
+                            </div>
+                            <div>
+                                <field name="plot_dag_no"
+                                       class="ms-auto"/>
+                            </div>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_building_structure_plan_filter" model="ir.ui.view">
+        <field name="name">Building Structure &amp; Plan</field>
+        <field name="model">building.structure</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="land_id"/>
+                <field name="khatian_no"/>
+                <field name="mouza_name"/>
+                <field name="approval_date"/>
+                <field name="structure_plan_approval_institute"/>
+                <separator/>
+                <filter name="groupby_land_id" context="{'group_by' : 'land_id'}" string="Project Area"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_building_structure_plan" model="ir.actions.act_window">
+        <field name="name">Building Structure &amp; Plan</field>
+        <field name="res_model">building.structure</field>
+        <field name="view_mode">list,form,kanban,pivot,activity</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Building Structure record!
+            </p>
+        </field>
+    </record>
+    <!--        <menuitem name="Rooms" id="menu_property_room" action="action_property_room" parent="menu_property_info" />-->
+    <menuitem id="menu_building_structure_plan" name="Building Structure &amp; Plan"
+              parent="land_info_root_menu"
+              action="action_building_structure_plan" sequence="50"/>
+
+</odoo>

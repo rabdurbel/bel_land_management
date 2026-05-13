@@ -1,0 +1,163 @@
+<?xml version="1.0" ?>
+<odoo>https://docs.google.com/document/d/1ZU3V3WZZduoUMdBHai5J4DH6J4zd1sFY0HtQPQi-wLA/edit
+
+    <record id="view_case_pending_list" model="ir.ui.view">
+        <field name="name">Case Pending</field>
+        <field name="model">case.pending.info</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="court_name"/>
+                <field name="land_case_id"/>
+                <field name="case_no"/>
+                <field name="case_next_date"/>
+                <field name="judgement"/>
+                <field name="case_status" readonly="1"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_case_pending_form" model="ir.ui.view">
+        <field name="name">Case Pending</field>
+        <field name="model">case.pending.info</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                    <!-- Statusbar -->
+                    <field name="case_status"
+                           widget="statusbar"
+                           statusbar_visible="draft,pending,hearing,investigation,judgment,closed"/>
+
+                    <!-- Buttons with invisible -->
+
+                    <button name="action_set_pending"
+                            type="object"
+                            string="Mark Pending"
+                            class="btn-primary"
+                            invisible="case_status != 'draft'"/>
+
+                    <button name="action_set_hearing"
+                            type="object"
+                            string="Start Hearing"
+                            class="btn-info"
+                            invisible="case_status != 'pending'"/>
+
+                    <button name="action_set_investigation"
+                            type="object"
+                            string="Investigate"
+                            class="btn-warning"
+                            invisible="case_status != 'hearing'"/>
+
+                    <button name="action_set_judgment"
+                            type="object"
+                            string="Judgment"
+                            class="btn-success"
+                            invisible="case_status != 'investigation'"/>
+                    <button name="action_set_closed" type="object"
+                            string="Closed"
+                            class="btn-danger"
+                            invisible="case_status == 'closed'"/>
+
+<!--                    <button name="action_set_closed"-->
+<!--                            type="object"-->
+<!--                            string="Close"-->
+<!--                            class="btn-info"-->
+<!--                            invisible="case_status != 'judgment'"/>-->
+                    <button name="action_set_draft"
+                            type="object"
+                            string="Draft"
+                            class="btn-secondary"
+                            invisible="case_status != 'closed'"/>
+
+                </header>
+
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group string="Case Pending Information">
+                        <group>
+                            <field name="case_no"/>
+                            <field name="court_name"/>
+                        </group>
+                        <group>
+                            <field name="land_case_id"/>
+                            <field name="case_next_date"/>
+                        </group>
+                        <group string="Judgement">
+                            <field name="judgement"/>
+                        </group>
+                    </group>
+
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="case_pending_info_view_kanban" model="ir.ui.view">
+        <field name="name">case.pending.view.kanban</field>
+        <field name="model">case.pending.info</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1" quick_create="false">
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex mb-2" style="justify-content: space-between;">
+                            <field name="court_name" class="fw-bolder fs-5"/>
+                            <field name="case_next_date" class="ms-1 text-muted fs-5"/>
+                        </div>
+                           <div class="d-flex mb-2" style="justify-content: space-between;">
+                            <field name="land_case_id" class="fw-bolder fs-5"/>
+                            <field name="case_no" String="Case No:" class="ms-1 text-muted fs-5"/>
+                        </div>
+                        <footer>
+                            <div class="d-flex text-muted">
+                                <field name="judgement"/>
+                            </div>
+                            <div>
+                                <field name="case_status"
+                                       widget="label_selection"
+                                       options="{'classes': {'draft': 'info', 'pending': 'default', 'investigation': 'success','closed':'btn-danger'}}"
+                                       class="ms-auto"/>
+                            </div>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_case_pending_filter" model="ir.ui.view">
+        <field name="name">Case Pending Info</field>
+        <field name="model">case.pending.info</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="court_name"/>
+                <field name="case_stage"/>
+                <field name="land_case_id"/>
+                <field name="case_no" invisible="1"/>
+                <separator/>
+                <filter name="groupby_land_case" context="{'group_by' : 'land_case_id'}" string="Land Case Pending"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_case_pending_info" model="ir.actions.act_window">
+        <field name="name">Case Pending Info</field>
+        <field name="res_model">case.pending.info</field>
+        <field name="view_mode">list,form,kanban,pivot,activity</field>
+         <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Case Pending record!
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_case_pending_info" name="Case Pending Info"
+              parent="land_info_root_menu"
+              action="action_case_pending_info" sequence="5"/>
+
+</odoo>

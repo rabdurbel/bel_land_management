@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View - With proper name display -->
+    <record id="view_property_owner_list" model="ir.ui.view">
+        <field name="name">property.owner.list</field>
+        <field name="model">property.owner</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state=='active'" decoration-warning="state=='draft'"
+                  decoration-danger="state=='inactive'" default_order="field_name">
+                <field name="name"/>
+<!--                <field name="field_name"/>-->
+                <field name="current_owner"/>
+                <field name="ownership_transfer_date"/>
+                <field name="sub_register_office"/>
+                <field name="previous_owner_name"/>
+                <field name="total_land_area" sum="Total" optional="hide"/>
+                <field name="total_buildings" optional="hide"/>
+                <field name="state" widget="badge"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_property_owner_form" model="ir.ui.view">
+        <field name="name">property.owner.form</field>
+        <field name="model">property.owner</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,inactive"/>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_inactive" type="object" string="Mark Inactive"
+                            invisible="state != 'active'"
+                    />
+
+                    <button name="action_reset_to_draft" type="object" string="Reset to Draft"
+                            invisible="state == 'draft'"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+
+                        <button name="action_view_land"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-map">
+
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="land_count"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    Lands
+                                </span>
+                            </div>
+
+                        </button>
+
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+
+                    <group string="Ownership Information">
+                        <group>
+                            <field name="current_owner"/>
+                            <field name="ownership_transfer_date"/>
+                            <field name="deep_no_attachment"/>
+                            <field name="sub_register_office"/>
+                            <field name="current_owner_address" widget="textarea"/>
+                        </group>
+                        <group>
+                            <field name="previous_owner_name"/>
+                            <field name="previous_owner_address" widget="textarea"/>
+                            <field name="deep_regi_date"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+
+                    <group string="Additional Information">
+                        <field name="description" widget="textarea" placeholder="Additional notes..."/>
+                    </group>
+
+                    <notebook>
+                        <page string="Land Information">
+                            <field name="land_info_ids">
+                                <list editable="bottom" default_order="land_name">
+                                    <field name="land_name"/>
+                                    <field name="district"/>
+                                    <field name="thana"/>
+                                    <field name="total_land_area"/>
+                                    <field name="land_type"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="land_name"/>
+                                        <field name="district"/>
+                                        <field name="thana"/>
+                                        <field name="total_land_area"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_property_owner_search" model="ir.ui.view">
+        <field name="name">property.owner.search</field>
+        <field name="model">property.owner</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="field_name" string="Property Name"/>
+                <field name="current_owner" string="Current Owner"/>
+                <field name="previous_owner_name" string="Previous Owner"/>
+                <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                <filter name="archived" string="Archived" domain="[('active','=',False)]"/>
+                <separator/>
+                <filter name="state_draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="state_active" string="Active" domain="[('state','=','active')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_state" string="Status" context="{'group_by':'state'}"/>
+                    <filter name="group_by_transfer_date" string="Transfer Date"
+                            context="{'group_by':'ownership_transfer_date:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--    Kanban View (Optional - for visual display)-->
+    <record id="view_property_owner_kanban" model="ir.ui.view">
+        <field name="name">property.owner.kanban</field>
+        <field name="model">property.owner</field>
+        <field name="arch" type="xml">
+
+            <kanban class="o_kanban_mobile">
+
+                <!-- Fields -->
+                <field name="field_name"/>
+                <field name="current_owner"/>
+                <field name="state"/>
+                <field name="total_buildings"/>
+
+                <templates>
+
+                    <t t-name="kanban-box">
+
+                        <div class="oe_kanban_global_click">
+
+                            <!-- TOP -->
+                            <div class="o_kanban_record_top mb16">
+                                <div class="o_kanban_record_headings">
+
+                                    <strong class="o_kanban_record_title">
+                                        <field name="field_name"/>
+                                    </strong>
+
+                                    <div>
+                                        <field name="current_owner"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- BOTTOM -->
+                            <div class="o_kanban_record_bottom">
+
+                                <!-- STATUS -->
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="state" widget="badge"/>
+                                </div>
+
+                                <!-- COUNTER -->
+                                <div class="oe_kanban_bottom_right">
+                                    <span title="Total Buildings">
+                                        <i class="fa fa-building" title="Buildings"/>
+                                        <field name="total_buildings"/>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </templates>
+
+            </kanban>
+
+        </field>
+    </record>
+    <!--    <record id="view_property_owner_kanban" model="ir.ui.view">-->
+    <!--        <field name="name">property.owner.kanban</field>-->
+    <!--        <field name="model">property.owner</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <kanban class="o_kanban_mobile">-->
+    <!--                <field name="previous_owner_name"/>-->
+    <!--                <field name="current_owner"/>-->
+    <!--                <field name="state"/>-->
+    <!--                <field name="total_buildings"/>-->
+    <!--                <templates>-->
+    <!--                    <t t-name="kanban-box">-->
+    <!--                        <div class="oe_kanban_global_click">-->
+    <!--                            <div class="o_kanban_record_top mb16">-->
+    <!--                                <div class="o_kanban_record_headings">-->
+    <!--                                    <strong class="o_kanban_record_title">-->
+    <!--                                        <field name="previous_owner_name"/>-->
+    <!--                                    </strong>-->
+    <!--                                    <field name="current_owner"/>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                            <div class="o_kanban_record_bottom">-->
+    <!--                                <div class="oe_kanban_bottom_left">-->
+    <!--                                    <field name="state" widget="badge"/>-->
+    <!--                                </div>-->
+    <!--                                <div class="oe_kanban_bottom_right">-->
+    <!--                                    <i class="fa fa-building"/>-->
+    <!--                                    <field name="total_buildings"/>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </t>-->
+    <!--                </templates>-->
+    <!--            </kanban>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <!-- Actions -->
+    <record id="action_property_owner" model="ir.actions.act_window">
+        <field name="name">Property Owners</field>
+        <field name="res_model">property.owner</field>
+        <field name="view_mode">list,form,kanban,pivot,activity</field>
+        <field name="context">{'search_default_active':1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Property Owner
+            </p>
+            <p>
+                Manage property owners, their ownership details, and associated properties.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_property_owner" name="Property Owners" parent="property_menu"
+              action="action_property_owner"
+              sequence="10"/>
+
+</odoo>

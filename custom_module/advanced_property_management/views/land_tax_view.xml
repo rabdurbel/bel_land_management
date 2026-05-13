@@ -1,0 +1,172 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="view_land_tax_info_list" model="ir.ui.view">
+        <field name="name">Land Tax</field>
+        <field name="model">land.tax</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'paid'"
+                  decoration-warning="state == 'verify'"
+                  decoration-danger="state == 'cancel'">
+                <field name="name"/>
+                <field name="land_id"/>
+<!--                <field name="land_name"/>-->
+                <field name="city_corporation_union"/>
+                <field name="total_land"/>
+                <field name="last_tax_payment_date"/>
+                <field name="tax_payment_amount" optional="hide"/>
+                <field name="mouza_name" optional="hide"/>
+                <field name="dag_no"/>
+                <field name="tax_payment_year"/>
+                <field name="state"/>
+                <field name="payment_rashid_no" optional="hide"/>
+                <field name="active" optional="hide"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_land_taxt_info_form" model="ir.ui.view">
+        <field name="name">Land Tax</field>
+        <field name="model">land.tax</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                    <!-- ✅ STATUSBAR -->
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,verify,approve,paid,cancel"/>
+
+                    <!-- FLOW BUTTONS -->
+                    <button name="action_verify"
+                            string="Verify"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_approve"
+                            string="Approve"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'verify'"/>
+
+                    <button name="action_paid"
+                            string="Mark Paid"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'approve'"/>
+
+                    <!-- CANCEL BUTTON (ANYTIME EXCEPT PAID) -->
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            class="btn-danger"
+                            invisible="state == 'cancel'"/>
+
+                    <!-- REOPEN -->
+                    <button name="action_reset_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            class="btn-warning"
+                            invisible="state != 'cancel'"/>
+
+                </header>
+
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group string="Land Tax Information">
+                        <group>
+                            <field name="land_id"/>
+<!--                            <field name="land_name"/>-->
+                            <field name="city_corporation_union"/>
+                            <field name="payment_rashid_no"/>
+
+                            <field name="total_land"/>
+                            <field name="last_tax_payment_date"/>
+                        </group>
+                        <group>
+                            <field name="tax_payment_amount"/>
+                            <field name="mouza_name"/>
+                            <field name="dag_no"/>
+                            <field name="tax_payment_year"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="land_tax_info_info_view_kanban" model="ir.ui.view">
+        <field name="name">land.tax.view.kanban</field>
+        <field name="model">land.tax</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1" quick_create="false">
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex mb-2" style="justify-content: space-between;">
+                            <field name="land_id" class="fw-bolder fs-5"/>
+                            <field name="last_tax_payment_date" class="ms-1 text-muted fs-5"/>
+                        </div>
+                        <div class="d-flex mb-2" style="justify-content: space-between;">
+                            <field name="land_name" class="fw-bolder fs-5"/>
+                            <field name="dag_no" String="Case No:" class="ms-1 text-muted fs-5"/>
+                        </div>
+                        <footer>
+                            <div class="d-flex text-muted">
+                                <field name="city_corporation_union"/>
+                            </div>
+                            <div>
+                                <!--                                <field name="case_status"-->
+                                <!--                                       widget="label_selection"-->
+                                <!--                                       options="{'classes': {'draft': 'info', 'pending': 'default', 'investigation': 'success','closed':'btn-danger'}}"-->
+                                <!--                                       class="ms-auto"/>-->
+                            </div>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_land_tax_info_filter" model="ir.ui.view">
+        <field name="name">Land Tax</field>
+        <field name="model">land.tax</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="land_id"/>
+                <field name="land_name"/>
+                <field name="city_corporation_union"/>
+                <field name="total_land"/>
+                <field name="last_tax_payment_date"/>
+                <field name="dag_no"/>
+                <field name="tax_payment_year"/>
+                <separator/>
+                <filter name="groupby_land_name" context="{'group_by' : 'land_name'}" string="Land Name"/>
+                <filter name="groupby_mouza_name" context="{'group_by' : 'mouza_name'}" string="Mouza Name"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_land_taxt_info" model="ir.actions.act_window">
+        <field name="name">Land Tax</field>
+        <field name="res_model">land.tax</field>
+        <field name="view_mode">list,form,kanban,pivot,activity</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Land Tax record!
+            </p>
+        </field>
+    </record>
+    <!--        <menuitem name="Rooms" id="menu_property_room" action="action_property_room" parent="menu_property_info" />-->
+    <menuitem id="menu_land_taxt_info" name="Land Tax Info"
+              parent="land_info_root_menu"
+              action="action_land_taxt_info" sequence="5"/>
+
+</odoo>
