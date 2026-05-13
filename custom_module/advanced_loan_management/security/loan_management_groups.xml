@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <!--        New user groups for the module Loan Management-->
         <record id="loan_management_groups" model="ir.module.category">
             <field name="name">Loan Management</field>
-            <field name="description">User access level for loan_management
-                model
-            </field>
+            <field name="description">User access level for loan_management model</field>
             <field name="sequence">25</field>
         </record>
         <record id="loan_management_group_user" model="res.groups">
