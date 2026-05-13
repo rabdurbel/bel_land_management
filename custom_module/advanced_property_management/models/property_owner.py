@@ -2,7 +2,6 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import datetime
 
-
 class PropertyOwner(models.Model):
     _name = 'property.owner'
     _description = 'Property Owner'

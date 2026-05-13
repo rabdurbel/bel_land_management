@@ -1,4 +1,3 @@
-
 from datetime import time
 from odoo import api, models, _
 from odoo.exceptions import UserError

@@ -1,7 +1,5 @@
-
 from odoo import models, _
 from odoo.exceptions import RedirectWarning
-
 
 class ResCompany(models.Model):
     """Model for inheriting res_company."""

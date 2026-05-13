@@ -1,4 +1,3 @@
-
 from . import account_move
 from . import property_area_measure
 from . import property_auction

@@ -1,4 +1,3 @@
-
 from odoo import api, fields, models
 from odoo.http import request
 

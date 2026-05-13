@@ -1,7 +1,6 @@
 from odoo import fields, models,api, _
 from odoo.exceptions import UserError
 
-
 class AccountRegisterPayments(models.TransientModel):
     """Inherits the account.payment.register model to add the new
      fields and functions"""

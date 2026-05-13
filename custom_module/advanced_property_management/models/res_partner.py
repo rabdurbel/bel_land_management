@@ -1,6 +1,4 @@
-
 from odoo import fields, models
-
 
 class ResPartner(models.Model):
     """A class that inherits the already existing model res partner"""

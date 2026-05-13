@@ -1,6 +1,4 @@
-
 from odoo import api, fields, models, _
-
 
 class AccountBalanceReport(models.TransientModel):
     _name = 'account.balance.report'

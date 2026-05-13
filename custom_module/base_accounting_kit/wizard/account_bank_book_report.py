@@ -1,8 +1,6 @@
-
 from datetime import date
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
-
 
 class BankBookWizard(models.TransientModel):
     _name = 'account.bank.book.report'

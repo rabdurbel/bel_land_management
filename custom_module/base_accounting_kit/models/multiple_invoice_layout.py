@@ -1,4 +1,3 @@
-
 from odoo import api, fields, models
 from odoo.modules import get_resource_path
 

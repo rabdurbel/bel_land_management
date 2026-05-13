@@ -1,7 +1,5 @@
-
 from odoo import api, fields, models
 from odoo.tools import get_lang
-
 
 class AccountCommonReport(models.Model):
     """Inherits the Account report model to add special fields and functions"""

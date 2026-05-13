@@ -1,4 +1,3 @@
-
 from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.translate import _

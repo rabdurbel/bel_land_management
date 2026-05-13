@@ -1,8 +1,6 @@
-
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from odoo import api, models, fields
-
 
 class RecurringPayments(models.Model):
     """Created the module for recurring payments"""

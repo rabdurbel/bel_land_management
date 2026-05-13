@@ -1,6 +1,4 @@
-
 from odoo import fields, models
-
 
 class MultipleInvoice(models.Model):
     """Multiple Invoice Model"""

@@ -1,6 +1,4 @@
-
 from odoo import api, models
-
 
 class AccountPaymentMethod(models.Model):
     """The class inherits the account payment method for supering the

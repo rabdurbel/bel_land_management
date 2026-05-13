@@ -1,8 +1,6 @@
-
 import time
 from odoo import api, models, _
 from odoo.exceptions import UserError
-
 
 class ReportJournal(models.AbstractModel):
     _name = 'report.base_accounting_kit.report_journal_audit'

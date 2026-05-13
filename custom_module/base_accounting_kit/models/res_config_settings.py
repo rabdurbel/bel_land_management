@@ -1,6 +1,4 @@
-
 from odoo import models, fields, api
-
 
 class ResConfigSettings(models.TransientModel):
     """Defines a model for configuration settings with additional fields for

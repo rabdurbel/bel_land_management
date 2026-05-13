@@ -1,6 +1,4 @@
-
 from odoo import fields, models
-
 
 class GetAllRecurringEntries(models.TransientModel):
     """Model for managing account recurring entries lines."""

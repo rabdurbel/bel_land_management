@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-
 from . import models
-
 
 def enable_analytic_accounting(env):
     group = env.ref('analytic.group_analytic_accounting')

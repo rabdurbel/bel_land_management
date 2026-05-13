@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
-
 
 class AccountBudgetPost(models.Model):
     """Model used to create the Budgetary Position for the account"""

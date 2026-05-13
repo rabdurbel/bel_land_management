@@ -1,6 +1,4 @@
-
 from odoo import fields, models
-
 
 class PropertyNearbyConnectivity(models.Model):
     """A class for the model property.nearby.connectivity to represent

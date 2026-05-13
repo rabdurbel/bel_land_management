@@ -1,6 +1,4 @@
-
 from odoo import api, fields, models, _
-
 
 class Property(models.Model):
     """A class for the model property to represent the property"""

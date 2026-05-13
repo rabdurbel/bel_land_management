@@ -1,6 +1,4 @@
-
 from odoo import fields, models
-
 
 class RentalBill(models.Model):
     """A class for the model rental bills to represent

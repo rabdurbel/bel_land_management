@@ -1,6 +1,4 @@
-
 from odoo import fields, models
-
 
 class ProductTemplate(models.Model):
     """Inherited the model for adding new fields and functions"""

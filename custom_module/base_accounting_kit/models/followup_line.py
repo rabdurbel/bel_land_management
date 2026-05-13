@@ -1,6 +1,4 @@
-
 from odoo import fields, models
-
 
 class FollowupLine(models.Model):
     """Model for defining follow-up criteria including the action name, sequence order, due days, and related follow-ups."""

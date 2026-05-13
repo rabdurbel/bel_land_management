@@ -1,6 +1,4 @@
-
 from odoo import fields, models
-
 
 class PropertyImages(models.Model):
     """A class for the model property image to represent

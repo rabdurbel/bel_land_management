@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 {
     'name': 'Odoo 18 Budget Management',
     'version': '18.0.1.0.0',

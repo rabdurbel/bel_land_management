@@ -1,6 +1,4 @@
-
 from odoo import api, fields, models
-
 
 # ---------------------------------------------------------
 # Account Financial Report
