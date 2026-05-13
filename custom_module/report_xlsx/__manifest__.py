@@ -1,4 +1,3 @@
-
 {
     "name": "Base report xlsx",
     "summary": "Base module to create xlsx report",
