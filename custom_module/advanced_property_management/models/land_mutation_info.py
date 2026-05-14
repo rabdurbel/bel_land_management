@@ -22,7 +22,7 @@ class LandMutationInfo(models.Model):
     mutation_copy = fields.Binary(string='Mutation Copy', attachment=True)
     dcr_copy = fields.Binary(string='DCR Copy', attachment=True)
 
-    # ✅ 5 STAGES
+    #  5 STAGES
     state = fields.Selection([
         ('draft', 'Draft'),
         ('verify', 'Verification'),

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Property rental action -->
     <record id="property_rental_action" model="ir.actions.act_window">

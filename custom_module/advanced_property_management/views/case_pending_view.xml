@@ -1,6 +1,5 @@
 <?xml version="1.0" ?>
-<odoo>https://docs.google.com/document/d/1ZU3V3WZZduoUMdBHai5J4DH6J4zd1sFY0HtQPQi-wLA/edit
-
+<odoo>
     <record id="view_case_pending_list" model="ir.ui.view">
         <field name="name">Case Pending</field>
         <field name="model">case.pending.info</field>

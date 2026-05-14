@@ -5,10 +5,7 @@
     'category': 'Accounting',
     'live_test_url': 'https://kit.easyinstance.com/web/login?redirect=/odoo/accounting',
     'summary': """Odoo 18 Accounting, Odoo 18 Accounting Reports, Odoo18 Accounting, Odoo Accounting, Odoo18 Financial Reports, Odoo18 Asset, Odoo18 Profit and Loss, PDC, Followups, Odoo18, Accounting, Odoo Apps, Reports""",
-    'description': """ Odoo 18 Accounting, The module used to manage the Full
-     Account Features that can manage the Account Reports,Journals Asset and 
-     Budget Management, Accounting Reports, PDC, Credit Limit, 
-     Follow Ups,  Day-Bank-Cash book report, Odoo 18 Accounting, odoo apps""",
+    'description': """ Odoo 18 Accounting, The module used to manage the Full Account Features that can manage the Account Reports,Journals Asset and Budget Management, Accounting Reports, PDC, Credit Limit, Follow Ups,  Day-Bank-Cash book report, Odoo 18 Accounting, odoo apps""",
     'author': 'Bay Emporium Limited',
     'company': 'Bay Emporium Limited',
     'maintainer': 'Bay Emporium Limited',

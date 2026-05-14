@@ -23,7 +23,7 @@ class LandTax(models.Model):
     total_land = fields.Float(string='Total Land (in decimal)')
     last_tax_payment_date = fields.Date(string='Last Tax Payment Date',  tracking=True)
     tax_payment_amount = fields.Float(string='Tax Payment Amount', tracking=True)
-    mouza_name = fields.Char(string='Mouza Name')
+    mouza_name = fields.Many2one('mouza.name',string='Mouza Name')
     dag_no = fields.Char(string='Dag No.')
 
     LAND_TYPE = [
