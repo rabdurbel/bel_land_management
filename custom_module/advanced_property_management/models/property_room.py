@@ -114,7 +114,7 @@ class PropertyRoom(models.Model):
         aggregator="avg",
     )
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         if vals.get('reference', _('New')) == _('New'):
             now = datetime.now()

@@ -60,7 +60,7 @@ class PropertyRental(models.Model):
     currency_id = fields.Many2one('res.currency', string='Currency',
                                   related='company_id.currency_id')
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         """Setting the sequence when record is created"""
         if vals.get('name', 'New') == 'New':

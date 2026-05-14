@@ -28,7 +28,7 @@ class AccountBudgetPost(models.Model):
             raise ValidationError(
                 _('The budget must have at least one account.'))
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         self._check_account_ids(vals)
         return super(AccountBudgetPost, self).create(vals)

@@ -113,7 +113,7 @@ class AccountAssetAsset(models.Model):
         """Update the 'value' field based on the 'price' of the selected 'category_id'."""
         self.value = self.category_id.price
 
-    @api.model
+    @api.model_create_multi
     def compute_generated_entries(self, date, asset_type=None):
         """Compute generated entries for assets based on the provided date and asset type."""
         # Entries generated : one by grouped category and one by asset from ungrouped category
@@ -508,7 +508,7 @@ class AccountAssetAsset(models.Model):
             return depreciation_ids.create_grouped_move()
         return depreciation_ids.create_move()
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         """Create a new asset record using the provided values and compute its depreciation schedule."""
         asset = super(AccountAssetAsset,

@@ -77,7 +77,7 @@ class LoanRequest(models.Model):
                    ('rejected', 'Rejected'), ('closed', 'Closed')],
         copy=False, tracking=True, default='draft', help="Loan request states")
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         """create  auto sequence for the loan request records"""
         loan_count = self.env['loan.request'].search(
