@@ -2,8 +2,7 @@
 {
     'name': 'Loan Management',
     'version': '18.0.1.0.1',
-    'summary': 'Helps You To Manage Loan Requests/Disbursement/'
-               'Repayments/Amortization Operations',
+    'summary': """Helps You To Manage Loan Requests/Disbursement Repayments/Amortization Operations""",
     'description': """Module Allows To Create different types of loans,''Manage Loan Requests And Amortization Operations Simply,''Create Invoices For Each Repayment Amounts""",
     'category': 'Accounting',
     'author': "Bay Emporium Limited",

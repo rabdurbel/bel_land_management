@@ -4,13 +4,7 @@
     'version': '18.0.1.0.0',
     'category': 'Accounting',
     'summary': """ Budget Management for Odoo 18 Community Edition. """,
-    'description': """ This module allows accountants to manage analytic and 
-    budgets. Once the Budgets are defined (in Accounting/Accounting/Budgets),
-    the Project Managers can set the planned amount on each Analytic Account.
-    The accountant has the possibility to see the total of amount planned for
-    each Budget in order to ensure the total planned is not greater/lower 
-    than what he planned for this Budget. Each list of record can also be 
-    switched to a graphical view of it, odoo17, accounting, odoo17 accounting, odoo17 budget, odoo17""",
+    'description': """ This module allows accountants to manage analytic and budgets. Once the Budgets are defined (in Accounting/Accounting/Budgets),the Project Managers can set the planned amount on each Analytic Account.The accountant has the possibility to see the total of amount planned for each Budget in order to ensure the total planned is not greater/lower """,
     'author': 'Bay Emporium Ltd.',
     'company': 'Bay Emporium Ltd.',
     'maintainer': 'Bay Emporium Ltd.',
