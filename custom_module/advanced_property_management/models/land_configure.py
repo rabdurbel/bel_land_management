@@ -39,14 +39,14 @@ class Division(models.Model):
     _name = 'res.division'
     _description = 'Division'
 
-    name = fields.Char(string="Division Name", required=True)
+    name = fields.Char(string="Division Name")
 
 
 class District(models.Model):
     _name = 'res.district'
     _description = 'District'
 
-    name = fields.Char(string="District Name", required=True)
+    name = fields.Char(string="District Name")
 
     division_id = fields.Many2one(
         'res.division',

@@ -12,7 +12,7 @@
                 <field name="name"/>
                 <field name="land_name"/>
                 <field name="owner_id"/>
-                <field name="district"/>
+                <field name="district_id"/>
                 <field name="thana"/>
                 <field name="total_land_area" sum="Total Area"/>
                 <field name="land_type"/>
@@ -320,9 +320,9 @@
                 <field name="land_usage"/>
                 <field name="image"/>
                 <field name="land_type"/>
-                <field name="district"/>
+                <field name="district_id"/>
                 <field name="thana"/>
-                <field name="division"/>
+                <field name="division_id"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
@@ -349,11 +349,11 @@
                                     <field name="land_usage"/>
                                 </div>
                                 <div>
-                                    <field name="district"/>
+                                    <field name="district_id"/>
                                 </div>
                                 <div>
                                     <field name="thana"/>
-                                    <t t-esc="division"/>
+                                    <t t-esc="division_id"/>
                                 </div>
                             </div>
                             <div class="oe_kanban_content position-absolute fixed-bottom mr-2">
@@ -386,7 +386,7 @@
                 <field name="land_usage"/>
                 <field name="deed_no"/>
                 <separator/>
-                <filter name="groupby_district" context="{'group_by' : 'district'}" string="District"/>
+                <filter name="groupby_district_id" context="{'group_by' : 'district_id'}" string="District"/>
                 <filter name="groupby_owner_id" context="{'group_by' : 'owner_id'}" string="Land Owner"/>
             </search>
         </field>

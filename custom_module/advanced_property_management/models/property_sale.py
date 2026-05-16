@@ -65,7 +65,7 @@ class PropertySale(models.Model):
                 raise ValidationError(_("You can't delete a confirmed property sale."))
             return super().unlink()
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
         """Generate Reference for the sale order"""
         if vals.get('name', _('New')) == _('New'):

@@ -56,7 +56,7 @@ class BuildingStructure(models.Model):
 
 
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
         if vals.get('name', _('New')) == _('New'):
             now = datetime.now()

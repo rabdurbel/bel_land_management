@@ -90,7 +90,7 @@
                             <field name="land_info_ids">
                                 <list editable="bottom" default_order="land_name">
                                     <field name="land_name"/>
-                                    <field name="district"/>
+                                    <field name="district_id"/>
                                     <field name="thana"/>
                                     <field name="total_land_area"/>
                                     <field name="land_type"/>
@@ -98,7 +98,7 @@
                                 <form>
                                     <group>
                                         <field name="land_name"/>
-                                        <field name="district"/>
+                                        <field name="district_id"/>
                                         <field name="thana"/>
                                         <field name="total_land_area"/>
                                     </group>

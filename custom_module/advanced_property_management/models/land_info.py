@@ -30,13 +30,13 @@ class LandInfo(models.Model):
     ]
 
     khatian_no = fields.Selection(KHATIAN_TYPE,string='Khatian No')
-    khatian_no_cs = fields.Char(string='Khatian No CS')
-    khatian_no_rs = fields.Char(string='Khatian No RS')
-    khatian_no_sa = fields.Char( string='Khatian No SA')
+    khatian_no_cs = fields.Char(string='Khatian No CS',required=True)
+    khatian_no_rs = fields.Char(string='Khatian No RS',required=True)
+    khatian_no_sa = fields.Char( string='Khatian No SA',required=True)
     khatian_no_bs = fields.Char(string='Khatian No BS')
     total_land_area = fields.Float(string='Total Land Area (in decimal)', required=True, tracking=True)
     land_management = fields.Char(string='Land Management')
-    district = fields.Char(string='District', required=True)
+    # district = fields.Char(string='District', required=True)
 
     division_id = fields.Many2one(
         'res.division',
@@ -45,16 +45,16 @@ class LandInfo(models.Model):
 
     district_id = fields.Many2one(
         'res.district',
-        string="District"
+        string="District",ondelete='cascade'
     )
-    thana = fields.Char(string='Thana', required=True)
+    thana = fields.Char(string='Thana')
     land_occupied = fields.Selection([
         ('yes', 'Yes'),
         ('no', 'No')
     ], string='Land Occupied', required=True, default='no')
 
     land_location_map = fields.Binary(string='Land Location Map', attachment=True)
-    mouza_name = fields.Many2one('mouza.name',string='Mouza Name')
+    mouza_name = fields.Many2one('mouza.name',string='Mouza Name',required=True)
     plot_dag_no = fields.Char(string='Plot/Dag NO (AS Per Record)')
     plot_dag_cs = fields.Char(string='Plot/Dag NO CS')
     plot_dag_rs = fields.Char(string='Plot/Dag NO RS')
@@ -71,10 +71,10 @@ class LandInfo(models.Model):
     other_document = fields.Binary(string='Other Document')
 
 
-    khatian_no_cs_doc = fields.Binary(string="CS Document", attachment=True)
-    khatian_no_rs_doc = fields.Binary(string="RS Document", attachment=True)
-    khatian_no_sa_doc = fields.Binary(string="SA Document", attachment=True)
-    khatian_no_bs_doc = fields.Binary(string="BS Document", attachment=True)
+    khatian_no_cs_doc = fields.Binary(string="CS Document" )
+    khatian_no_rs_doc = fields.Binary(string="RS Document")
+    khatian_no_sa_doc = fields.Binary(string="SA Document")
+    khatian_no_bs_doc = fields.Binary(string="BS Document")
 
     # =========================
     # Plot / Dag Documents
@@ -130,7 +130,7 @@ class LandInfo(models.Model):
     ]
 
     land_type = fields.Many2one('land.type', string='Land Type', required=True)
-    division = fields.Char(string='Division', required=True)
+    # division = fields.Char(string='Division')
 
     LAND_CLASSIFICATION = [
         ('urban', 'Urban'),
@@ -347,7 +347,7 @@ class LandInfo(models.Model):
             ],
         }
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
         if vals.get('name', _('New')) == _('New'):
             now = datetime.now()

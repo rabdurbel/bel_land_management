@@ -59,7 +59,7 @@ class PropertyAuction(models.Model):
                                   related='company_id.currency_id',
                                   required=True)
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
         """Supering the create function inorder to set the auction_seq number"""
         if vals.get('auction_seq', 'New') == 'New':

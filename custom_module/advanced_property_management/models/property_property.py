@@ -159,7 +159,7 @@ class Property(models.Model):
     rent_month = fields.Monetary(
         string="Rent/Month", help="Rent price per month", tracking=True)
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
         """Generating sequence number at the time of creation of record"""
         if vals.get("code", "New") == "New":
