@@ -1,5 +1,6 @@
 from odoo import fields, models
 
+
 class PropertyTag(models.Model):
     """A class for the model property tags to represent
     the related tags for a property"""

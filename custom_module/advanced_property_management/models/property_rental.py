@@ -1,6 +1,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
+
 class PropertyRental(models.Model):
     """A class for the model property rental to represent
     the rental order of a property"""
@@ -56,7 +57,7 @@ class PropertyRental(models.Model):
                                help='The next invoicing date')
     company_id = fields.Many2one('res.company',
                                  string="Property Management Company",
-                                 default=lambda self: self.env.company)                         
+                                 default=lambda self: self.env.company)
     currency_id = fields.Many2one('res.currency', string='Currency',
                                   related='company_id.currency_id')
 

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, _
@@ -71,11 +70,11 @@ class LoanRequest(models.Model):
     request = fields.Boolean(string="Request",
                              help="For monitoring the record")
     state = fields.Selection(string='State',
-                selection=[('draft', 'Draft'), ('confirmed', 'Confirmed'),
-                   ('waiting', 'Waiting For Approval'),
-                   ('approved', 'Approved'), ('disbursed', 'Disbursed'),
-                   ('rejected', 'Rejected'), ('closed', 'Closed')],
-        copy=False, tracking=True, default='draft', help="Loan request states")
+                             selection=[('draft', 'Draft'), ('confirmed', 'Confirmed'),
+                                        ('waiting', 'Waiting For Approval'),
+                                        ('approved', 'Approved'), ('disbursed', 'Disbursed'),
+                                        ('rejected', 'Rejected'), ('closed', 'Closed')],
+                             copy=False, tracking=True, default='draft', help="Loan request states")
 
     @api.model_create_multi
     def create(self, vals):
@@ -221,7 +220,7 @@ class LoanRequest(models.Model):
         self.request = True
         for loan in self:
             loan.repayment_lines_ids.unlink()
-            date_start = datetime.strptime(str(loan.date),'%Y-%m-%d') + relativedelta(months=1)
+            date_start = datetime.strptime(str(loan.date), '%Y-%m-%d') + relativedelta(months=1)
             amount = loan.loan_amount / loan.tenure
             interest = loan.loan_amount * loan.interest_rate
             interest_amount = interest / loan.tenure

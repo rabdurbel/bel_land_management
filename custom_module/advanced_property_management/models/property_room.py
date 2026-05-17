@@ -13,8 +13,8 @@ class PropertyRoom(models.Model):
     _order = 'id desc'
 
     reference = fields.Char(string='Reference', readonly=True,
-                       copy=False, default='New',
-                       help='The reference code/sequence of the property Land Info')
+                            copy=False, default='New',
+                            help='The reference code/sequence of the property Land Info')
     name = fields.Char(string="Number")
     property_id = fields.Many2one("property.property", string="Property", required=True)
 

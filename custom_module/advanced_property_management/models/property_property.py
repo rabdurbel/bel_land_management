@@ -1,5 +1,6 @@
 from odoo import api, fields, models, _
 
+
 class Property(models.Model):
     """A class for the model property to represent the property"""
 
@@ -14,7 +15,7 @@ class Property(models.Model):
         readonly=True,
         copy=False,
         default=lambda self: _("New"),
-        help="Sequence/code for the property",)
+        help="Sequence/code for the property", )
     property_type = fields.Selection(
         [
             ("land", "Land"),
@@ -37,10 +38,10 @@ class Property(models.Model):
         string="Status",
         default="draft",
         help="* The 'Draft' status is used when the property is in draft.\n"
-        "* The 'Available' status is used when the property is "
-        "available or confirmed\n"
-        "* The 'Rented' status is used when the property is rented.\n"
-        "* The 'sold' status is used when the property is sold.\n")
+             "* The 'Available' status is used when the property is "
+             "available or confirmed\n"
+             "* The 'Rented' status is used when the property is rented.\n"
+             "* The 'sold' status is used when the property is sold.\n")
     street = fields.Char(string="Street", required=True, help="The street name")
     street2 = fields.Char(string="Street2", help="The street2 name")
     zip = fields.Char(string="Zip", change_default=True, help="Zip code for the place")
@@ -103,7 +104,7 @@ class Property(models.Model):
         string="Bathrooms", help="Number of bathrooms in the property")
     parking = fields.Integer(
         string="Parking",
-        help="Number of cars or bikes that can be parked " "in the property",)
+        help="Number of cars or bikes that can be parked " "in the property", )
     furnishing = fields.Selection(
         [
             ("no_furnished", "Not Furnished"),
@@ -112,8 +113,8 @@ class Property(models.Model):
         ],
         string="Furnishing",
         help="Whether the residence is fully furnished or partially/half "
-        "furnished or not at all furnished")
-    land_name = fields.Many2one('land.info',string="Land Name", help="The name of the land")
+             "furnished or not at all furnished")
+    land_name = fields.Many2one('land.info', string="Land Name", help="The name of the land")
     land_area = fields.Char(
         string="Area In Hector", help="The area of the land in hector")
     shop_name = fields.Char(string="Shop Name", help="The name of the shop")
@@ -164,8 +165,8 @@ class Property(models.Model):
         """Generating sequence number at the time of creation of record"""
         if vals.get("code", "New") == "New":
             vals["code"] = (
-                self.env["ir.sequence"].next_by_code("property.property") or
-                "New")
+                    self.env["ir.sequence"].next_by_code("property.property") or
+                    "New")
         res = super(Property, self).create(vals)
         self.env['product.template'].create({
             'name': res.name,

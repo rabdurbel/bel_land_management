@@ -9,7 +9,8 @@
     'company': 'Bay Emporium Limited',
     'maintainer': 'Bay Emporium Limited',
     'website': "https://www.amarbay.com",
-    'depends': ['account', 'sale', 'account_check_printing', 'analytic','base_account_budget','advanced_property_management'],
+    'depends': ['account', 'sale', 'account_check_printing', 'analytic', 'base_account_budget',
+                'advanced_property_management'],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -75,8 +76,8 @@
         'wizard/import_bank_statement_views.xml',
     ],
     'external_dependencies': {
-            'python': ['openpyxl', 'ofxparse', 'qifparse']
-        },
+        'python': ['openpyxl', 'ofxparse', 'qifparse']
+    },
     'assets': {
         'web.assets_backend': [
             'base_accounting_kit/static/src/scss/style.scss',

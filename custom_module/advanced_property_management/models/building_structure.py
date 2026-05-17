@@ -20,15 +20,12 @@ class BuildingStructure(models.Model):
     approval_date = fields.Date(string='Approved Date')
     plot_dag_no = fields.Char(string='Plot/Dag NO', related='land_id.plot_dag_no')
 
-    structure_plan_approval_institute = fields.Char(string='Structure & Plan Approval Institute',tracking=True)
+    structure_plan_approval_institute = fields.Char(string='Structure & Plan Approval Institute', tracking=True)
     attachment_copy = fields.Binary(string='Attachment Copy', attachment=True)
-
 
     active = fields.Boolean(string='Active', default=True)
 
-
-
-    # ✅ STATE
+    #  STATE
     state = fields.Selection([
         ('draft', 'Draft'),
         ('verify', 'Verification'),
@@ -37,7 +34,7 @@ class BuildingStructure(models.Model):
         ('cancel', 'Cancelled'),
     ], string="Status", default='draft', tracking=True)
 
-    # 🔥 ACTION METHODS
+    #  ACTION METHODS
     def action_verify(self):
         self.state = 'verify'
 
@@ -52,9 +49,6 @@ class BuildingStructure(models.Model):
 
     def action_reset_draft(self):
         self.state = 'draft'
-
-
-
 
     @api.model
     def create(self, vals):

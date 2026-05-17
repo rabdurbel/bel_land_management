@@ -7,9 +7,3 @@ from . import loan_type
 from . import repayment_lines
 from . import res_config_settings
 from . import res_partner
-
-
-
-
-
-

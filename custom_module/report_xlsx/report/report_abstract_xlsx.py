@@ -12,6 +12,7 @@ _logger = logging.getLogger(__name__)
 try:
     import xlsxwriter
 
+
     class PatchedXlsxWorkbook(xlsxwriter.Workbook):
         def _check_sheetname(self, sheetname, is_chartsheet=False):
             """We want to avoid duplicated sheet names exceptions the same following
@@ -42,7 +43,7 @@ try:
             except xlsxwriter.exceptions.DuplicateWorksheetName:
                 pattern = re.compile(r"~[0-9]{2}$")
                 duplicated_secuence = (
-                    re.search(pattern, sheetname) and int(sheetname[-2:]) or 0
+                        re.search(pattern, sheetname) and int(sheetname[-2:]) or 0
                 )
                 # Only up to 100 duplicates
                 deduplicated_secuence = f"~{duplicated_secuence + 1:02d}"
@@ -56,6 +57,7 @@ try:
                     sheetname = sheetname[:28] + deduplicated_secuence
             # Refeed the method until we get an unduplicated name
             return self._check_sheetname(sheetname, is_chartsheet=is_chartsheet)
+
 
     # "Short string"
 

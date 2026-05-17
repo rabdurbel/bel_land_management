@@ -3,14 +3,12 @@ from odoo.exceptions import ValidationError
 from datetime import datetime
 
 
-
 class LandTax(models.Model):
     _name = 'land.tax'
     _description = 'Land Tax Information'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'land_id'
     _order = 'last_tax_payment_date desc'
-
 
     name = fields.Char(string='Reference', readonly=True,
                        copy=False, default='New',
@@ -21,9 +19,9 @@ class LandTax(models.Model):
     city_corporation_union = fields.Char(string='City Corporation Name')
     land_name = fields.Char(string='Land Name')
     total_land = fields.Float(string='Total Land (in decimal)')
-    last_tax_payment_date = fields.Date(string='Last Tax Payment Date',  tracking=True)
+    last_tax_payment_date = fields.Date(string='Last Tax Payment Date', tracking=True)
     tax_payment_amount = fields.Float(string='Tax Payment Amount', tracking=True)
-    mouza_name = fields.Many2one('mouza.name',string='Mouza Name')
+    mouza_name = fields.Many2one('mouza.name', string='Mouza Name')
     dag_no = fields.Char(string='Dag No.')
 
     LAND_TYPE = [
@@ -66,9 +64,6 @@ class LandTax(models.Model):
 
     def action_reset_draft(self):
         self.state = 'draft'
-
-
-
 
     @api.model
     def create(self, vals):

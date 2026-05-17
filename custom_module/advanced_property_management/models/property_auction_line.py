@@ -13,7 +13,7 @@ class PropertyAuctionLine(models.Model):
     bid_time = fields.Datetime(string='Bid Time',
                                help='The date and time when the bid was placed')
     currency_id = fields.Many2one('res.currency', 'Currency',
-                                  default=lambda self: self.env.user.company_id.currency_id,required=True)
+                                  default=lambda self: self.env.user.company_id.currency_id, required=True)
     bid_amount = fields.Monetary(string='bid amount',
                                  help='The amount which is bid')
     auction_id = fields.Many2one('property.auction',

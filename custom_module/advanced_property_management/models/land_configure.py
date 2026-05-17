@@ -11,8 +11,6 @@ class LandType(models.Model):
     name = fields.Char(string='Name', required=True)
 
 
-
-
 class LandClassification(models.Model):
     """A class for the model property facilities to represent
     the related facilities for a property"""
@@ -21,8 +19,6 @@ class LandClassification(models.Model):
     _rec_name = 'name'
 
     name = fields.Char(string='Name', required=True)
-
-
 
 
 class LandUsage(models.Model):
@@ -53,5 +49,3 @@ class District(models.Model):
         string="Division",
         required=True
     )
-
-

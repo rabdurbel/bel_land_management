@@ -2,6 +2,7 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import datetime
 
+
 class PropertyOwner(models.Model):
     _name = 'property.owner'
     _description = 'Property Owner'
@@ -13,14 +14,14 @@ class PropertyOwner(models.Model):
 
     field_name = fields.Char(string='Field Name', tracking=True)
     # current_owner = fields.Char(string='Current Owner', required=True, tracking=True)
-    current_owner = fields.Many2one("res.partner",string='Current Owner', tracking=True)
+    current_owner = fields.Many2one("res.partner", string='Current Owner', tracking=True)
     ownership_transfer_date = fields.Date(string='Ownership Transfer Date', tracking=True)
     deep_no_attachment = fields.Boolean(string='Deep No Attachment File', default=False)
     sub_register_office = fields.Char(string='Sub Register Office', tracking=True)
     current_owner_address = fields.Text(string='Current Owner Address')
-    previous_owner_name = fields.Many2one("res.partner",string='Previous Owner Name',traking=True)
+    previous_owner_name = fields.Many2one("res.partner", string='Previous Owner Name', traking=True)
     previous_owner_address = fields.Text(string='Previous Owner Address')
-    deep_regi_date = fields.Date(string='Deep Registration Date',tracking=True)
+    deep_regi_date = fields.Date(string='Deep Registration Date', tracking=True)
     description = fields.Text(string='Description')
 
     # Relations
@@ -72,7 +73,6 @@ class PropertyOwner(models.Model):
                     raise ValidationError(_('Deep registration date cannot be after ownership transfer date!'))
 
         # Count field
-
 
     # Compute
     def _compute_land_count(self):

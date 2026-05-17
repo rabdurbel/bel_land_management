@@ -29,10 +29,10 @@ class LandInfo(models.Model):
         ('bs', 'BS'),
     ]
 
-    khatian_no = fields.Selection(KHATIAN_TYPE,string='Khatian No')
-    khatian_no_cs = fields.Char(string='Khatian No CS',required=True)
-    khatian_no_rs = fields.Char(string='Khatian No RS',required=True)
-    khatian_no_sa = fields.Char( string='Khatian No SA',required=True)
+    khatian_no = fields.Selection(KHATIAN_TYPE, string='Khatian No')
+    khatian_no_cs = fields.Char(string='Khatian No CS', required=True)
+    khatian_no_rs = fields.Char(string='Khatian No RS', required=True)
+    khatian_no_sa = fields.Char(string='Khatian No SA', required=True)
     khatian_no_bs = fields.Char(string='Khatian No BS')
     total_land_area = fields.Float(string='Total Land Area (in decimal)', required=True, tracking=True)
     land_management = fields.Char(string='Land Management')
@@ -45,7 +45,7 @@ class LandInfo(models.Model):
 
     district_id = fields.Many2one(
         'res.district',
-        string="District",ondelete='cascade'
+        string="District", ondelete='cascade'
     )
     thana = fields.Char(string='Thana')
     land_occupied = fields.Selection([
@@ -54,7 +54,7 @@ class LandInfo(models.Model):
     ], string='Land Occupied', required=True, default='no')
 
     land_location_map = fields.Binary(string='Land Location Map', attachment=True)
-    mouza_name = fields.Many2one('mouza.name',string='Mouza Name',required=True)
+    mouza_name = fields.Many2one('mouza.name', string='Mouza Name', required=True)
     plot_dag_no = fields.Char(string='Plot/Dag NO (AS Per Record)')
     plot_dag_cs = fields.Char(string='Plot/Dag NO CS')
     plot_dag_rs = fields.Char(string='Plot/Dag NO RS')
@@ -63,15 +63,14 @@ class LandInfo(models.Model):
 
     total_land_dag = fields.Float(string='Total Land/Dag')
     purchase_land_area = fields.Float(string='Purchase Land Area (Decimal)')
-    deed_no =fields.Char(string='Deed No', tracking=True)
+    deed_no = fields.Char(string='Deed No', tracking=True)
     date = fields.Date(string='Date')
     viya_deed = fields.Char(string='Bia Deed')
     viya_mutation = fields.Char(string='Bia Mutation')
     viya_court_order = fields.Char(string='Bia Court Order')
     other_document = fields.Binary(string='Other Document')
 
-
-    khatian_no_cs_doc = fields.Binary(string="CS Document" )
+    khatian_no_cs_doc = fields.Binary(string="CS Document")
     khatian_no_rs_doc = fields.Binary(string="RS Document")
     khatian_no_sa_doc = fields.Binary(string="SA Document")
     khatian_no_bs_doc = fields.Binary(string="BS Document")
@@ -90,7 +89,6 @@ class LandInfo(models.Model):
     viya_deed_doc = fields.Binary(string='Bia Deed')
     viya_mutation_doc = fields.Binary(string='Bia Mutation')
     viya_court_order_doc = fields.Binary(string='Bia Court Order')
-
 
     # MULTIPLE FILE (Attachment)
     # -------------------------
@@ -117,9 +115,6 @@ class LandInfo(models.Model):
         'attachment_id',
         string='Bia Court Order'
     )
-
-
-
 
     LAND_TYPE = [
         ('residential', 'Residential'),
@@ -169,7 +164,6 @@ class LandInfo(models.Model):
     case_count = fields.Integer(compute="_compute_counts")
     mutation_count = fields.Integer(compute="_compute_counts")
 
-
     state = fields.Selection([
         ('draft', 'Draft'),
         ('verify', 'Verified'),
@@ -194,7 +188,6 @@ class LandInfo(models.Model):
                     'district_id': []
                 }
             }
-
 
     #  Create attachment function
     def _create_attachment(self, field_name):
@@ -309,7 +302,7 @@ class LandInfo(models.Model):
 
     #  Override write
     def write(self, vals):
-        self._delete_removed_attachments(vals)  #  IMPORTANT
+        self._delete_removed_attachments(vals)  # IMPORTANT
         res = super().write(vals)
         self._create_attachment('khatian_no_cs_doc')
         self._create_attachment('khatian_no_rs_doc')
@@ -439,6 +432,3 @@ class LandInfo(models.Model):
             'view_mode': 'list,form',
             'domain': [('land_mutation_id', '=', self.id)],
         }
-
-
-

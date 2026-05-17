@@ -2,6 +2,7 @@ import werkzeug.utils
 from odoo import fields, http
 from odoo.http import request
 
+
 class PropertyController(http.Controller):
     """A controller class that shows the related functions to the property"""
 

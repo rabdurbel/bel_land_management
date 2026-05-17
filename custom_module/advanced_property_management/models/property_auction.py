@@ -86,7 +86,7 @@ class PropertyAuction(models.Model):
         final_price, end_time"""
         if self.participant_ids:
             selected_line = sorted(self.participant_ids, key=lambda x: x.bid_amount,
-                       reverse=True)[0]
+                                   reverse=True)[0]
             self.auction_winner_id = selected_line.partner_id.id
             self.final_price = selected_line.bid_amount
             print("start time", self.start_time)

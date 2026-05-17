@@ -7,7 +7,7 @@
     'author': "BAY Emporium Ltd.",
     'company': 'BAY Emporium Ltd.',
     'maintainer': 'BAY Emporium Ltd.',
-    'depends': ['mail', 'sale_management', 'website','base_geolocalize'],
+    'depends': ['mail', 'sale_management', 'website', 'base_geolocalize'],
     'data': [
         'security/user_groups.xml',
         'security/property_security.xml',

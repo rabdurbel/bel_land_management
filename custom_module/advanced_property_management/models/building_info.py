@@ -57,7 +57,6 @@ class BuildingInfo(models.Model):
 
     rent_agreement_attachment = fields.Binary(string='Rent Agreement Attachment', attachment=True)
 
-
     # ✅ Button Actions
     def action_start_construction(self):
         for rec in self:
@@ -75,14 +74,9 @@ class BuildingInfo(models.Model):
         for rec in self:
             rec.building_status = 'draft'
 
-
-
     def action_renovation(self):
         for rec in self:
             rec.building_status = 'renovation'
-
-
-
 
     # Relations
     # rental_info_ids = fields.One2many('rental.info', 'building_id', string='Rental Information')

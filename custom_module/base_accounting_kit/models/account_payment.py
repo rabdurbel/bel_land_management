@@ -1,5 +1,6 @@
-from odoo import fields, models,api, _
+from odoo import fields, models, api, _
 from odoo.exceptions import UserError
+
 
 class AccountRegisterPayments(models.TransientModel):
     """Inherits the account.payment.register model to add the new
@@ -81,21 +82,20 @@ class AccountPayment(models.Model):
     _inherit = "account.payment"
 
     bank_reference = fields.Char(string="Bank Reference", copy=False)
-    cheque_reference = fields.Char(string="Cheque Reference",copy=False)
+    cheque_reference = fields.Char(string="Cheque Reference", copy=False)
     effective_date = fields.Date('Effective Date',
                                  help='Effective date of PDC', copy=False,
                                  default=False)
 
     land_info_id = fields.Many2one('land.info', string='Project Area')
     owner_id = fields.Many2one('property.owner', string='Land Owner', tracking=True)
-    mouza_name = fields.Char(string="mouza_name", copy=False)
-
-
+    mouza_name = fields.Many2one('mouza.name', string="Mouza Name", copy=False)
 
     land_owner_payment = fields.Float(string="Land Owner Payment")
     registration_cost = fields.Float(string="Registration Cost(Payorder)")
     miscellaneous_cost = fields.Float(string="Registration Miscellaneous Cost")
     amount = fields.Monetary(string="Total Amount", compute="_compute_amount", store=True)
+
     # -------------------------
     # COMPUTE METHOD
     # -------------------------

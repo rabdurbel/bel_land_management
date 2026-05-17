@@ -1,6 +1,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
+
 class PropertySale(models.Model):
     """A class for the model property sale to represent
     the sale order of a property"""

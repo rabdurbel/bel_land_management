@@ -1,7 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
-from  datetime import datetime
-
+from datetime import datetime
 
 
 class CasePendingInformation(models.Model):
@@ -15,7 +14,7 @@ class CasePendingInformation(models.Model):
     court_name = fields.Char(string='Court Name', tracking=True)
     case_no = fields.Char(string='Case No', tracking=True)
     case_stage = fields.Char(string='Case Stage')
-    case_next_date = fields.Date(string='Case Next DATE',  tracking=True)
+    case_next_date = fields.Date(string='Case Next DATE', tracking=True)
     judgement = fields.Text(string='Judgement')
 
     CASE_STATUS = [
@@ -27,7 +26,7 @@ class CasePendingInformation(models.Model):
         ('closed', 'Closed')
     ]
 
-    name = fields.Char(string="Case Reference", required=True,  readonly=True, default="New")
+    name = fields.Char(string="Case Reference", required=True, readonly=True, default="New")
 
     case_status = fields.Selection(
         CASE_STATUS,
@@ -55,9 +54,6 @@ class CasePendingInformation(models.Model):
     def action_set_draft(self):
         for rec in self:
             rec.case_status = 'draft'
-
-
-
 
     @api.model
     def create(self, vals):

@@ -3,14 +3,12 @@ from odoo.exceptions import ValidationError
 from datetime import datetime
 
 
-
 class LandMutationInfo(models.Model):
     _name = 'land.mutation.info'
     _description = 'Land Mutation Information'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'land_mutation_id'
     # _order = 'last_tax_payment_date desc'
-
 
     name = fields.Char(string='Reference', readonly=True,
                        copy=False, default='New',
@@ -48,9 +46,6 @@ class LandMutationInfo(models.Model):
 
     def action_reset_draft(self):
         self.state = 'draft'
-
-
-
 
     @api.model
     def create(self, vals):
