@@ -8,7 +8,7 @@
             <list decoration-success="state=='active'" decoration-warning="state=='draft'"
                   decoration-danger="state=='inactive'" default_order="field_name">
                 <field name="name"/>
-<!--                <field name="field_name"/>-->
+                <!--                <field name="field_name"/>-->
                 <field name="current_owner"/>
                 <field name="ownership_transfer_date"/>
                 <field name="sub_register_office"/>

@@ -148,7 +148,7 @@
     </record>
 
 
-      <!-- Division Menu -->
+    <!-- Division Menu -->
     <menuitem id="menu_division"
               name="Division"
               parent="property_configuration_menu"

@@ -81,7 +81,7 @@
                             <field name="occupancy_status"/>
                             <field name="plot_size_sft"/>
                             <field name="total_basement"/>
-<!--                            <field name="building_status"/>-->
+                            <!--                            <field name="building_status"/>-->
                             <field name="generator_info"/>
                             <field name="rent_agreement_attachment"/>
 
@@ -184,7 +184,7 @@
         <field name="name">Building Information</field>
         <field name="res_model">building.info</field>
         <field name="view_mode">list,form,kanban,pivot,activity</field>
-         <field name="help" type="html">
+        <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new Building Info record!
             </p>

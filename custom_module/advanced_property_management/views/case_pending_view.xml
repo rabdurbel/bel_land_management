@@ -59,11 +59,11 @@
                             class="btn-danger"
                             invisible="case_status == 'closed'"/>
 
-<!--                    <button name="action_set_closed"-->
-<!--                            type="object"-->
-<!--                            string="Close"-->
-<!--                            class="btn-info"-->
-<!--                            invisible="case_status != 'judgment'"/>-->
+                    <!--                    <button name="action_set_closed"-->
+                    <!--                            type="object"-->
+                    <!--                            string="Close"-->
+                    <!--                            class="btn-info"-->
+                    <!--                            invisible="case_status != 'judgment'"/>-->
                     <button name="action_set_draft"
                             type="object"
                             string="Draft"
@@ -109,7 +109,7 @@
                             <field name="court_name" class="fw-bolder fs-5"/>
                             <field name="case_next_date" class="ms-1 text-muted fs-5"/>
                         </div>
-                           <div class="d-flex mb-2" style="justify-content: space-between;">
+                        <div class="d-flex mb-2" style="justify-content: space-between;">
                             <field name="land_case_id" class="fw-bolder fs-5"/>
                             <field name="case_no" String="Case No:" class="ms-1 text-muted fs-5"/>
                         </div>
@@ -149,7 +149,7 @@
         <field name="name">Case Pending Info</field>
         <field name="res_model">case.pending.info</field>
         <field name="view_mode">list,form,kanban,pivot,activity</field>
-         <field name="help" type="html">
+        <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new Case Pending record!
             </p>

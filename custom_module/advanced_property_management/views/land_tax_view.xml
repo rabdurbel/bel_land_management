@@ -11,7 +11,7 @@
                   decoration-danger="state == 'cancel'">
                 <field name="name"/>
                 <field name="land_id"/>
-<!--                <field name="land_name"/>-->
+                <!--                <field name="land_name"/>-->
                 <field name="city_corporation_union"/>
                 <field name="total_land"/>
                 <field name="last_tax_payment_date"/>
@@ -82,7 +82,7 @@
                     <group string="Land Tax Information">
                         <group>
                             <field name="land_id"/>
-<!--                            <field name="land_name"/>-->
+                            <!--                            <field name="land_name"/>-->
                             <field name="city_corporation_union"/>
                             <field name="payment_rashid_no"/>
 

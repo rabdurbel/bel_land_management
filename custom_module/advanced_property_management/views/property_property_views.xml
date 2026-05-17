@@ -19,7 +19,7 @@
     <menuitem id="property_menu" name="Property" parent="property_root_menu"
               sequence="2"/>
 
-     <menuitem id="land_info_root_menu" name="Land Information" parent="property_root_menu"
+    <menuitem id="land_info_root_menu" name="Land Information" parent="property_root_menu"
               sequence="4"/>
     <menuitem id="property_property_menu" name="Properties"
               parent="property_menu"
@@ -233,16 +233,16 @@
                                 </list>
                             </field>
                         </page>
-                         <page string="Rooms">
-                                <field name="room_ids">
-                                    <list editable="bottom">
-                                        <field name="name" />
-                                        <field name="usage_id" />
-                                        <field name="surface" sum="surface" />
-                                        <field name="floor_type"  />
-                                    </list>
-                                </field>
-                            </page>
+                        <page string="Rooms">
+                            <field name="room_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="usage_id"/>
+                                    <field name="surface" sum="surface"/>
+                                    <field name="floor_type"/>
+                                </list>
+                            </field>
+                        </page>
                         <page string="Nearby Connectivity">
                             <field name="nearby_connectivity_ids">
                                 <list editable="bottom">

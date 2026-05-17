@@ -15,7 +15,6 @@
         'data/ir_sequence_data.xml',
         'data/advanced_property_management_data.xml',
         'data/ir_cron_data.xml',
-        'views/property_management_menus.xml',
         'views/property_property_views.xml',
         'views/property_facility_views.xml',
         'views/property_tag_views.xml',
