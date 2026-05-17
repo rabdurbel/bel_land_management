@@ -308,62 +308,103 @@
     </record>
 
 
-    <!-- Property kanban view -->
-    <record id="land_info_view_kanban" model="ir.ui.view">
-        <field name="name">land.info.view.kanban</field>
+    <record id="land_info_view_kanban_fullimage" model="ir.ui.view">
+        <field name="name">land.info.view.kanban.fullimage</field>
         <field name="model">land.info</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_mobile"
-                    sample="1">
+            <kanban class="o_kanban_mobile" sample="1">
                 <field name="id"/>
                 <field name="land_name"/>
                 <field name="land_usage"/>
                 <field name="image"/>
                 <field name="land_type"/>
-                <field name="district_id"/>
+                field name="district_id"/>
                 <field name="thana"/>
                 <field name="division_id"/>
+
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
-                            <field name="image"
-                                   class="o_kanban_image_fill_left"
-                                   preview_image="image"
-                                   widget="image"
-                                   options="{'zoom': true, 'zoom_delay': 1000, 'background': true, 'preventClicks': false}"/>
-                            <div class="oe_kanban_details">
-                                <div class="o_kanban_record_top">
-                                    <div class="o_kanban_record_headings">
-                                        <strong class="o_kanban_record_title">
-                                            <h3>
-                                                <field name="land_name"/>
-                                            </h3>
-                                        </strong>
-                                        <span class="o_kanban_record_subtitle">
-                                            <field name="land_type"/>
-                                        </span>
+                        <div class="oe_kanban_global_click o_kanban_record p-0"
+                             style="border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 
+                            <!-- Full Width Image with Overlay -->
+                            <div class="position-relative" style="height: 160px; overflow: hidden;">
+                                <!-- Background Image -->
+                                <field name="image"
+                                       class="w-100 h-100"
+                                       preview_image="image"
+                                       widget="image"
+                                       style="object-fit: cover; width: 100%; height: 100%;"/>
+
+                                <!-- Dark Gradient Overlay -->
+                                <div class="position-absolute top-0 start-0 w-100 h-100"
+                                     style="background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));"></div>
+
+                                <!-- Content Over Image -->
+                                <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white">
+                                    <h5 class="mb-1 text-white" style="font-weight: 600;">
+                                        <field name="land_name"/>
+                                    </h5>
+                                    <div class="d-flex align-items-center small">
+                                        <i class="fa fa-map-marker me-1"
+                                           role="img"
+                                           aria-label="Location"
+                                           title="Location"></i>
+                                        <span><field name="district_id"/>,
+                                            <field name="thana"/>
+                                        </span>
                                     </div>
                                 </div>
-                                <div>
-                                    <field name="land_usage"/>
+
+                                <!-- Top Badges -->
+                                <div class="position-absolute top-0 start-0 m-2">
+                                    <span class="badge bg-primary rounded-pill px-2 py-1">
+                                        <field name="land_type"/>
+                                    </span>
                                 </div>
-                                <div>
-                                    <field name="district_id"/>
-                                </div>
-                                <div>
-                                    <field name="thana"/>
-                                    <t t-esc="division_id"/>
+
+                                <!-- Zoom Icon -->
+                                <div class="position-absolute top-0 end-0 m-2">
+                                    <div class="bg-white bg-opacity-25 rounded-circle p-1"
+                                         style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+                                        <i class="fa fa-search-plus text-white"
+                                           style="font-size: 14px;"
+                                           role="img"
+                                           aria-label="Zoom"
+                                           title="Click to zoom"></i>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="oe_kanban_content position-absolute fixed-bottom mr-2">
-                                <div class="o_kanban_record_bottom">
-                                    <div class="oe_kanban_bottom_left"/>
-                                    <div class="oe_kanban_bottom_right">
-                                        <div class="">
-                                            <field name="activity_ids"
-                                                   widget="kanban_activity"/>
-                                        </div>
+
+                            <!-- Bottom Section -->
+                            <div class="p-3 bg-white">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="text-muted small">
+                                        <i class="fa fa-tag me-1"
+                                           role="img"
+                                           aria-label="Land Usage"
+                                           title="Land Usage"></i>
+                                        <field name="land_usage"/>
+                                    </div>
+                                    <div class="text-muted small">
+                                        <i class="fa fa-globe me-1"
+                                           role="img"
+                                           aria-label="Division"
+                                           title="Division"></i>
+                                        <field name="division_id"/>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                                    <div class="text-primary small">
+                                        <i class="fa fa-eye me-1"
+                                           role="img"
+                                           aria-label="Views"
+                                           title="Total views"></i>
+                                        245 views
+                                    </div>
+                                    <div>
+                                        <field name="activity_ids" widget="kanban_activity"/>
                                     </div>
                                 </div>
                             </div>
@@ -373,6 +414,142 @@
             </kanban>
         </field>
     </record>
+
+    <!-- Property kanban view -->
+
+    <!--    <record id="land_info_view_kanban" model="ir.ui.view">-->
+    <!--        <field name="name">land.info.view.kanban</field>-->
+    <!--        <field name="model">land.info</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <kanban class="o_kanban_mobile" sample="1">-->
+    <!--                <field name="id"/>-->
+    <!--                <field name="land_name"/>-->
+    <!--                <field name="land_usage"/>-->
+    <!--                <field name="image"/>-->
+    <!--                <field name="land_type"/>-->
+    <!--                <field name="district_id"/>-->
+    <!--                <field name="thana"/>-->
+    <!--                <field name="division_id"/>-->
+
+    <!--                <templates>-->
+    <!--                    <t t-name="kanban-box">-->
+    <!--                        <div class="oe_kanban_global_click o_kanban_record p-0"-->
+    <!--                             style="border-radius: 12px; overflow: hidden;">-->
+    <!--                            <div class="d-flex">-->
+    <!--                                &lt;!&ndash; Minimal Image &ndash;&gt;-->
+    <!--                                <div style="width: 100px; height: 100px; flex-shrink: 0;">-->
+    <!--                                    <field name="image"-->
+    <!--                                           class="w-100 h-100"-->
+    <!--                                           preview_image="image"-->
+    <!--                                           widget="image"-->
+    <!--                                           style="object-fit: cover;"/>-->
+    <!--                                </div>-->
+
+    <!--                                &lt;!&ndash; Content &ndash;&gt;-->
+    <!--                                <div class="flex-grow-1 p-3">-->
+    <!--                                    <div class="d-flex justify-content-between align-items-start mb-2">-->
+    <!--                                        <h5 class="mb-0" style="font-weight: 500; font-size: 1rem;">-->
+    <!--                                            <field name="land_name"/>-->
+    <!--                                        </h5>-->
+    <!--                                        <span class="text-muted small">-->
+    <!--                                            <field name="land_type"/>-->
+    <!--                                        </span>-->
+    <!--                                    </div>-->
+
+    <!--                                    <div class="text-muted small mb-1">-->
+    <!--                                        <i class="fa fa-tag me-1" style="width: 14px;"></i>-->
+    <!--                                        <field name="land_usage"/>-->
+    <!--                                    </div>-->
+
+    <!--                                    <div class="text-muted small">-->
+    <!--                                        <i class="fa fa-location-dot me-1" style="width: 14px;"></i>-->
+    <!--                                        <field name="district_id"/>,-->
+    <!--                                        <field name="thana"/>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+
+    <!--                            &lt;!&ndash; Bottom Divider with Activity &ndash;&gt;-->
+    <!--                            <div class="border-top px-3 py-2 bg-light d-flex justify-content-between align-items-center"-->
+    <!--                                 style="background-color: #f8f9fa;">-->
+    <!--                                <div class="small text-muted">-->
+    <!--                                    <i class="fa fa-map me-1"></i>-->
+    <!--                                    <field name="division_id"/>-->
+    <!--                                </div>-->
+    <!--                                <div>-->
+    <!--                                    <field name="activity_ids" widget="kanban_activity"/>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </t>-->
+    <!--                </templates>-->
+    <!--            </kanban>-->
+    <!--        </field>-->
+    <!--    </record>-->
+    <!--    <record id="land_info_view_kanban" model="ir.ui.view">-->
+    <!--        <field name="name">land.info.view.kanban</field>-->
+    <!--        <field name="model">land.info</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <kanban class="o_kanban_mobile"-->
+    <!--                    sample="1">-->
+    <!--                <field name="id"/>-->
+    <!--                <field name="land_name"/>-->
+    <!--                <field name="land_usage"/>-->
+    <!--                <field name="image"/>-->
+    <!--                <field name="land_type"/>-->
+    <!--                <field name="district_id"/>-->
+    <!--                <field name="thana"/>-->
+    <!--                <field name="division_id"/>-->
+    <!--                <templates>-->
+    <!--                    <t t-name="kanban-box">-->
+    <!--                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill">-->
+    <!--                            <field name="image"-->
+    <!--                                   class="o_kanban_image_fill_left"-->
+    <!--                                   preview_image="image"-->
+    <!--                                   widget="image"-->
+    <!--                                   options="{'zoom': true, 'zoom_delay': 1000, 'background': true, 'preventClicks': false}"/>-->
+    <!--                            <div class="oe_kanban_details">-->
+    <!--                                <div class="o_kanban_record_top">-->
+    <!--                                    <div class="o_kanban_record_headings">-->
+    <!--                                        <strong class="o_kanban_record_title">-->
+    <!--                                            <h3>-->
+    <!--                                                <field name="land_name"/>-->
+    <!--                                            </h3>-->
+    <!--                                        </strong>-->
+    <!--                                        <span class="o_kanban_record_subtitle">-->
+    <!--                                            <field name="land_type"/>-->
+    <!--                                        </span>-->
+
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                                <div>-->
+    <!--                                    <field name="land_usage"/>-->
+    <!--                                </div>-->
+    <!--                                <div>-->
+    <!--                                    <field name="district_id"/>-->
+    <!--                                </div>-->
+    <!--                                <div>-->
+    <!--                                    <field name="thana"/>-->
+    <!--                                    <t t-esc="division_id"/>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                            <div class="oe_kanban_content position-absolute fixed-bottom mr-2">-->
+    <!--                                <div class="o_kanban_record_bottom">-->
+    <!--                                    <div class="oe_kanban_bottom_left"/>-->
+    <!--                                    <div class="oe_kanban_bottom_right">-->
+    <!--                                        <div class="">-->
+    <!--                                            <field name="activity_ids"-->
+    <!--                                                   widget="kanban_activity"/>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </t>-->
+    <!--                </templates>-->
+    <!--            </kanban>-->
+    <!--        </field>-->
+    <!--    </record>-->
 
 
     <record id="view_land_info_filter" model="ir.ui.view">
