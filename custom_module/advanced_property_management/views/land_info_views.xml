@@ -11,10 +11,12 @@
                   decoration-muted="state == 'done'">
                 <field name="name"/>
                 <field name="land_name"/>
+                <field name="seller_name"/>
                 <field name="owner_id"/>
-                <field name="district_id"/>
-                <field name="thana"/>
-                <field name="total_land_area" sum="Total Area"/>
+                <field name="district_id" optional="hide"/>
+                <field name="thana" optional="hide"/>
+                <field name="purchase_land_area" sum="Purchase Total Land Area"/>
+                <field name="total_land_dag" sum="Total Land Dag"/>
                 <field name="land_type"/>
                 <field name="land_usage"/>
                 <field name="state"/>
@@ -175,7 +177,6 @@
                                 <field name="viya_deed_doc_ids" widget="many2many_binary" string=""/>
                                 <field name="viya_mutation_doc_ids" widget="many2many_binary" string=""/>
                                 <field name="viya_court_order_doc_ids" widget="many2many_binary" string=""/>
-
                             </group>
 
                             <!--                            <field name="other_document"/>-->
@@ -187,31 +188,36 @@
                     <group>
                         <group string="Khatian Information">
                             <group>
+
                                 <field name="khatian_no_cs"/>
                                 <field name="khatian_no_rs"/>
                                 <field name="khatian_no_sa"/>
                                 <field name="khatian_no_bs"/>
                             </group>
                             <group>
-                                <field name="khatian_no_cs_doc" string=""/>
-                                <field name="khatian_no_rs_doc" string=""/>
-                                <field name="khatian_no_sa_doc" string=""/>
-                                <field name="khatian_no_bs_doc" string=""/>
+                                <field name="khatian_no_cs_doc_ids" widget="many2many_binary" string=""/>
+                                <field name="khatian_no_sa_doc_ids" widget="many2many_binary" string=""/>
+                                <field name="khatian_no_bs_doc_ids" widget="many2many_binary" string=""/>
+                                <field name="khatian_no_rs_doc_ids" widget="many2many_binary" string=""/>
+                                <!--                                <field name="khatian_no_cs_doc" string=""/>-->
+                                <!--                                <field name="khatian_no_rs_doc" string=""/>-->
+                                <!--                                <field name="khatian_no_sa_doc" string=""/>-->
+                                <!--                                <field name="khatian_no_bs_doc" string=""/>-->
                             </group>
                         </group>
                         <group string="Dag Information">
-                            <group>
-                                <field name="plot_dag_cs"/>
-                                <field name="plot_dag_rs"/>
-                                <field name="plot_dag_sa"/>
-                                <field name="plot_dag_bs"/>
-                            </group>
-                            <group>
-                                <field name="plot_dag_cs_doc" string=""/>
-                                <field name="plot_dag_rs_doc" string=""/>
-                                <field name="plot_dag_sa_doc" string=""/>
-                                <field name="plot_dag_bs_doc" string=""/>
-                            </group>
+
+                            <field name="plot_dag_cs"/>
+                            <field name="plot_dag_rs"/>
+                            <field name="plot_dag_sa"/>
+                            <field name="plot_dag_bs"/>
+
+                            <!--                            <group>-->
+                            <!--                                <field name="plot_dag_cs_doc" string=""/>-->
+                            <!--                                <field name="plot_dag_rs_doc" string=""/>-->
+                            <!--                                <field name="plot_dag_sa_doc" string=""/>-->
+                            <!--                                <field name="plot_dag_bs_doc" string=""/>-->
+                            <!--                            </group>-->
 
                         </group>
 
@@ -220,15 +226,18 @@
                         <!--  1. BASIC LAND INFO -->
                         <group string="Basic Land Information">
                             <field name="land_name"/>
-                            <field name="owner_id" required="1"/>
-                            <field name="deed_no"/>
                             <field name="date"/>
                             <field name="land_usage" required="1"/>
                             <field name="land_type" required="1"/>
+                            <field name="deed_no"/>
+                            <field name="rosid_no"/>
+                            <field name="certified_deed_no"/>
                         </group>
 
                         <!--  2. LAND SIZE & DETAILS -->
                         <group string="Land Size &amp; Details">
+                            <field name="seller_name"/>
+                            <field name="owner_id" required="1"/>
                             <field name="total_land_area" required="1"/>
                             <field name="purchase_land_area"/>
                             <field name="total_land_dag"/>

@@ -25,7 +25,6 @@ class LandMutationInfo(models.Model):
         ('draft', 'Draft'),
         ('verify', 'Verification'),
         ('approve', 'Approved'),
-        ('paid', 'Paid'),
         ('cancel', 'Cancelled'),
     ], string="Status", default='draft', tracking=True)
 
@@ -36,8 +35,8 @@ class LandMutationInfo(models.Model):
     def action_approve(self):
         self.state = 'approve'
 
-    def action_paid(self):
-        self.state = 'paid'
+    # def action_paid(self):
+    #     self.state = 'paid'
 
     def action_cancel(self):
         for rec in self:

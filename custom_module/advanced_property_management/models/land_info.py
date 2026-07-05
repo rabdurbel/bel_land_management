@@ -22,6 +22,9 @@ class LandInfo(models.Model):
         default=lambda self: self.env.user
     )
 
+    seller_name = fields.Many2one('res.partner',string="Seller Name")
+
+
     KHATIAN_TYPE = [
         ('cs', 'CS'),
         ('rs', 'RS'),
@@ -63,32 +66,69 @@ class LandInfo(models.Model):
 
     total_land_dag = fields.Float(string='Total Land/Dag')
     purchase_land_area = fields.Float(string='Purchase Land Area (Decimal)')
-    deed_no = fields.Char(string='Deed No', tracking=True)
-    date = fields.Date(string='Date')
+    deed_no = fields.Binary(string='Original Deed', tracking=True)
+    certified_deed_no = fields.Binary(string='Certified Original Deed', tracking=True)
+    rosid_no = fields.Binary(string="Rosid No.")
+
+    date = fields.Date(string='Purchase Date')
     viya_deed = fields.Char(string='Bia Deed')
     viya_mutation = fields.Char(string='Bia Mutation')
     viya_court_order = fields.Char(string='Bia Court Order')
     other_document = fields.Binary(string='Other Document')
 
-    khatian_no_cs_doc = fields.Binary(string="CS Document")
-    khatian_no_rs_doc = fields.Binary(string="RS Document")
-    khatian_no_sa_doc = fields.Binary(string="SA Document")
-    khatian_no_bs_doc = fields.Binary(string="BS Document")
 
+
+
+    # =========================
+    # Khatian Documents
+    # =========================
+
+    # khatian_no_cs_doc = fields.Binary(string="CS Document")
+    # khatian_no_rs_doc = fields.Binary(string="RS Document")
+    # khatian_no_sa_doc = fields.Binary(string="SA Document")
+    # khatian_no_bs_doc = fields.Binary(string="BS Document")
+    khatian_no_cs_doc_ids = fields.Many2many(
+        'ir.attachment',
+        'khatian_no_cs_doc_rel',
+        'res_id',
+        'attachment_id',
+        string="CS Document"
+    )
+    khatian_no_rs_doc_ids = fields.Many2many(
+        'ir.attachment',
+        'khatian_no_rs_doc_ids_rel',
+        'res_id',
+        'attachment_id',
+        string="RS Document"
+    )
+    khatian_no_sa_doc_ids = fields.Many2many(
+        'ir.attachment',
+        'khatian_no_sa_doc_ids_rel',
+        'res_id',
+        'attachment_id',
+        string="SA Document"
+    )
+    khatian_no_bs_doc_ids = fields.Many2many(
+        'ir.attachment',
+        'khatian_no_bs_doc_ids_rel',
+        'res_id',
+        'attachment_id',
+        string="BS Document"
+    )
     # =========================
     # Plot / Dag Documents
     # =========================
-    plot_dag_cs_doc = fields.Binary(string='Plot/Dag No CS')
-    plot_dag_rs_doc = fields.Binary(string='Plot/Dag No RS')
-    plot_dag_sa_doc = fields.Binary(string='Plot/Dag No SA')
-    plot_dag_bs_doc = fields.Binary(string='Plot/Dag No BS')
+    # plot_dag_cs_doc = fields.Binary(string='Plot/Dag No CS')
+    # plot_dag_rs_doc = fields.Binary(string='Plot/Dag No RS')
+    # plot_dag_sa_doc = fields.Binary(string='Plot/Dag No SA')
+    # plot_dag_bs_doc = fields.Binary(string='Plot/Dag No BS')
 
     # =========================
     # Viya Documents
     # =========================
-    viya_deed_doc = fields.Binary(string='Bia Deed')
-    viya_mutation_doc = fields.Binary(string='Bia Mutation')
-    viya_court_order_doc = fields.Binary(string='Bia Court Order')
+    # viya_deed_doc = fields.Binary(string='Bia Deed')
+    # viya_mutation_doc = fields.Binary(string='Bia Mutation')
+    # viya_court_order_doc = fields.Binary(string='Bia Court Order')
 
     # MULTIPLE FILE (Attachment)
     # -------------------------
@@ -216,7 +256,11 @@ class LandInfo(models.Model):
         multi_fields = [
             'viya_deed_doc_ids',
             'viya_mutation_doc_ids',
-            'viya_court_order_doc_ids'
+            'viya_court_order_doc_ids',
+            'khatian_no_cs_doc_ids',
+            'khatian_no_sa_doc_ids',
+            'khatian_no_bs_doc_ids'
+            'khatian_no_rs_doc_ids'
         ]
 
         for field in multi_fields:
@@ -248,7 +292,11 @@ class LandInfo(models.Model):
         multi_fields = [
             'viya_deed_doc_ids',
             'viya_mutation_doc_ids',
-            'viya_court_order_doc_ids'
+            'viya_court_order_doc_ids',
+            'khatian_no_cs_doc_ids',
+            'khatian_no_sa_doc_ids',
+            'khatian_no_bs_doc_ids'
+            'khatian_no_rs_doc_ids'
         ]
 
         for field in multi_fields:
@@ -286,14 +334,14 @@ class LandInfo(models.Model):
     #  Override create
     def create(self, vals):
         record = super().create(vals)
-        record._create_attachment('khatian_no_cs_doc')
-        record._create_attachment('khatian_no_rs_doc')
-        record._create_attachment('khatian_no_sa_doc')
-        record._create_attachment('khatian_no_bs_doc')
-        record._create_attachment('plot_dag_cs_doc')
-        record._create_attachment('plot_dag_rs_doc')
-        record._create_attachment('plot_dag_sa_doc')
-        record._create_attachment('plot_dag_bs_doc')
+        record._create_attachment('certified_deed_no')
+        record._create_attachment('deed_no')
+        record._create_attachment('rosid_no')
+        # record._create_attachment('khatian_no_bs_doc')
+        # record._create_attachment('plot_dag_cs_doc')
+        # record._create_attachment('plot_dag_rs_doc')
+        # record._create_attachment('plot_dag_sa_doc')
+        # record._create_attachment('plot_dag_bs_doc')
         # record._create_attachment('viya_deed_doc')
         # record._create_attachment('viya_mutation_doc')
         # record._create_attachment('viya_court_order_doc')
@@ -304,14 +352,18 @@ class LandInfo(models.Model):
     def write(self, vals):
         self._delete_removed_attachments(vals)  # IMPORTANT
         res = super().write(vals)
-        self._create_attachment('khatian_no_cs_doc')
-        self._create_attachment('khatian_no_rs_doc')
-        self._create_attachment('khatian_no_sa_doc')
-        self._create_attachment('khatian_no_bs_doc')
-        self._create_attachment('plot_dag_cs_doc')
-        self._create_attachment('plot_dag_rs_doc')
-        self._create_attachment('plot_dag_sa_doc')
-        self._create_attachment('plot_dag_bs_doc')
+
+        # self._create_attachment('khatian_no_cs_doc')
+        # self._create_attachment('khatian_no_rs_doc')
+        # self._create_attachment('khatian_no_sa_doc')
+        # self._create_attachment('khatian_no_bs_doc')
+        # self._create_attachment('plot_dag_cs_doc')
+        # self._create_attachment('plot_dag_rs_doc')
+        # self._create_attachment('plot_dag_sa_doc')
+        # self._create_attachment('plot_dag_bs_doc')
+        self._create_attachment('certified_deed_no')
+        self._create_attachment('deed_no')
+        self._create_attachment('rosid_no')
         # self._create_attachment('viya_deed_doc')
         # self._create_attachment('viya_mutation_doc')
         # self._create_attachment('viya_court_order_doc')

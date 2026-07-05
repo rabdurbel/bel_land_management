@@ -29,7 +29,7 @@
                     <!-- ✅ STATUSBAR -->
                     <field name="state"
                            widget="statusbar"
-                           statusbar_visible="draft,verify,approve,paid,cancel"/>
+                           statusbar_visible="draft,verify,approve,cancel"/>
 
                     <!-- FLOW BUTTONS -->
                     <button name="action_verify"
@@ -44,11 +44,11 @@
                             class="btn-success"
                             invisible="state != 'verify'"/>
 
-                    <button name="action_paid"
-                            string="Mark Paid"
-                            type="object"
-                            class="btn-success"
-                            invisible="state != 'approve'"/>
+<!--                    <button name="action_paid"-->
+<!--                            string="Mark Paid"-->
+<!--                            type="object"-->
+<!--                            class="btn-success"-->
+<!--                            invisible="state != 'approve'"/>-->
 
                     <!-- CANCEL BUTTON (ANYTIME EXCEPT PAID) -->
                     <button name="action_cancel"

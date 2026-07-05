@@ -15,10 +15,10 @@ class BuildingStructure(models.Model):
                        help='The reference code/sequence of the property Building Structure')
 
     land_name = fields.Char(string='Land Name', related='land_id.land_name', store=True)
-    khatian_no = fields.Selection(related='land_id.khatian_no', string='KHATIAN NO', store=True)
+    khatian_no = fields.Char(string='Khatian NO')
     mouza_name = fields.Many2one('mouza.name', string='Mouza Name', store=True)
     approval_date = fields.Date(string='Approved Date')
-    plot_dag_no = fields.Char(string='Plot/Dag NO', related='land_id.plot_dag_no')
+    plot_dag_no = fields.Char(string='Plot/Dag NO')
 
     structure_plan_approval_institute = fields.Char(string='Structure & Plan Approval Institute', tracking=True)
     attachment_copy = fields.Binary(string='Attachment Copy', attachment=True)
