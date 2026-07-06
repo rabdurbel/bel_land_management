@@ -25,7 +25,7 @@ class LandMutationInfo(models.Model):
         ('draft', 'Draft'),
         ('verify', 'Verification'),
         ('approve', 'Approved'),
-        ('cancel', 'Cancelled'),
+        ('closed', 'Closed'),
     ], string="Status", default='draft', tracking=True)
 
     # 🔥 ACTION BUTTONS
@@ -40,8 +40,8 @@ class LandMutationInfo(models.Model):
 
     def action_cancel(self):
         for rec in self:
-            if rec.state != 'cancel':
-                rec.state = 'cancel'
+            if rec.state != 'closed':
+                rec.state = 'closed'
 
     def action_reset_draft(self):
         self.state = 'draft'

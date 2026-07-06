@@ -29,7 +29,7 @@
                     <!-- ✅ STATUSBAR -->
                     <field name="state"
                            widget="statusbar"
-                           statusbar_visible="draft,verify,approve,cancel"/>
+                           statusbar_visible="draft,verify,approve,closed"/>
 
                     <!-- FLOW BUTTONS -->
                     <button name="action_verify"
@@ -52,17 +52,17 @@
 
                     <!-- CANCEL BUTTON (ANYTIME EXCEPT PAID) -->
                     <button name="action_cancel"
-                            string="Cancel"
+                            string="Closed"
                             type="object"
                             class="btn-danger"
-                            invisible="state == 'cancel'"/>
+                            invisible="state == 'closed'"/>
 
                     <!-- REOPEN -->
                     <button name="action_reset_draft"
                             string="Reset to Draft"
                             type="object"
                             class="btn-warning"
-                            invisible="state != 'cancel'"/>
+                            invisible="state != 'closed'"/>
 
                 </header>
 
