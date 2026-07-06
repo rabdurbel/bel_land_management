@@ -21,7 +21,6 @@
                 <field name="land_usage"/>
                 <field name="state"/>
                 <field name="deed_no" optional="hide"/>
-                <field name="purchase_land_area" optional="hide"/>
             </list>
         </field>
     </record>
