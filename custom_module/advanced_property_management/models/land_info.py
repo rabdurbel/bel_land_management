@@ -66,8 +66,8 @@ class LandInfo(models.Model):
 
     total_land_dag = fields.Float(string='Total Land/Dag')
     purchase_land_area = fields.Float(string='Purchase Land Area (Decimal)')
-    deed_no = fields.Binary(string='Original Deed', tracking=True)
-    certified_deed_no = fields.Binary(string='Certified Original Deed', tracking=True)
+    deed_no = fields.Binary(string='Original Deed')
+    certified_deed_no = fields.Binary(string='Certified Original Deed')
     rosid_no = fields.Binary(string="Rosid No.")
 
     date = fields.Date(string='Purchase Date')
